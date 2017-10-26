@@ -4,15 +4,14 @@
 #include <map>
 #include <string>
 
-struct SDL_Window;
-struct SDL_Renderer;
+namespace GameView {
 
 class Graphics {
 public:
     Graphics();
     ~Graphics();
 
-    SDL_Surface* loadImage(const std::string &filePath);
+    SDL_Surface* loadImage(const std::string& filePath);
     void blitSurface(SDL_Texture* source, SDL_Rect* sourceRectangle, SDL_Rect* destinationRectangle);
     void flip();
     void clear();
@@ -24,3 +23,5 @@ private:
 
     std::map<std::string, SDL_Surface*> _spriteSheets;
 };
+
+}

@@ -1,7 +1,7 @@
 #include "Game.hpp"
 
 int main() {
-    Game game;
+    GameView::Game game;
 
     return 0;
 }

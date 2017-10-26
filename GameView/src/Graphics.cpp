@@ -3,6 +3,8 @@
 
 #include "Graphics.hpp"
 
+namespace GameView {
+
 Graphics::Graphics() {
     SDL_CreateWindowAndRenderer(800, 600, 0, &this->_window, &this->_renderer);
     SDL_SetWindowTitle(this->_window, "Test");
@@ -13,7 +15,7 @@ Graphics::~Graphics() {
     SDL_DestroyRenderer(this->_renderer);
 }
 
-SDL_Surface* Graphics::loadImage(const std::string &filePath) {
+SDL_Surface* Graphics::loadImage(const std::string& filePath) {
     if (this->_spriteSheets.count(filePath) == 0) {
         this->_spriteSheets[filePath] = IMG_Load(filePath.c_str());
     }
@@ -34,4 +36,6 @@ void Graphics::clear() {
 
 SDL_Renderer* Graphics::getRenderer() const {
     return this->_renderer;
+}
+
 }

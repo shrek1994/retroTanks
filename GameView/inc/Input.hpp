@@ -3,6 +3,8 @@
 #include <SDL2/SDL.h>
 #include <map>
 
+namespace GameView {
+
 class Input {
 public:
     void beginNewFrame();
@@ -17,3 +19,5 @@ private:
     std::map<SDL_Scancode, bool> _pressedKeys;
     std::map<SDL_Scancode, bool> _releasedKeys;
 };
+
+}

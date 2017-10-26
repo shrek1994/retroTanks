@@ -4,9 +4,11 @@
 #include "Input.hpp"
 
 namespace {
-    constexpr int FPS = 100;
+    constexpr int FPS = 50;
     constexpr int MAX_FRAME_TIME = 1000 / FPS;
 }
+
+namespace GameView {
 
 Game::Game() {
     SDL_Init(SDL_INIT_EVERYTHING);
@@ -29,13 +31,9 @@ void Game::gameLoop() {
                 if (event.key.repeat == 0) {
                     input.keyDownEvent(event);
                 }
-            }
-            else if (event.type == SDL_KEYUP) {
+            } else if (event.type == SDL_KEYUP) {
                 input.keyUpEvent(event);
             }
-        }
-        if (input.wasKeyPressed(SDL_SCANCODE_ESCAPE)) {
-            return;
         }
 
         const int CURRENT_TIME_MS = SDL_GetTicks();
@@ -48,11 +46,13 @@ void Game::gameLoop() {
     } while (event.type != SDL_QUIT);
 }
 
-void Game::draw(Graphics &graphics) {
+void Game::draw(Graphics& graphics) {
     graphics.clear();
 
     graphics.flip();
 }
 
 void Game::update(int elapsedTime) {
+}
+
 }

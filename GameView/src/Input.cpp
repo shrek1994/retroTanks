@@ -1,5 +1,7 @@
 #include "Input.hpp"
 
+namespace GameView {
+
 void Input::beginNewFrame() {
     this->_pressedKeys.clear();
     this->_releasedKeys.clear();
@@ -25,4 +27,6 @@ bool Input::wasKeyReleased(SDL_Scancode key) {
 
 bool Input::isKeyHeld(SDL_Scancode key) {
     return this->_heldKeys[key];
+}
+
 }
