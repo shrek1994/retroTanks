@@ -12,8 +12,16 @@ INCLUDE(FindPkgConfig)
 PKG_SEARCH_MODULE(SDL2IMAGE REQUIRED SDL2_image>=2.0.0)
 include_directories(${SDL2_INCLUDE_DIRS})
 
-include_directories(GameView/inc)
-set(SOURCE_FILES main.cpp GameView/src/Graphics.cpp GameView/inc/Graphics.hpp GameView/src/Input.cpp GameView/inc/Input.hpp GameView/src/Game.cpp GameView/inc/Game.hpp)
+include_directories(code/GameView/inc)
+set(SOURCE_FILES code/main.cpp
+        code/GameView/src/Graphics.cpp
+        code/GameView/inc/Graphics.hpp
+        code/GameView/src/Input.cpp
+        code/GameView/inc/Input.hpp
+        code/GameView/src/Game.cpp
+        code/GameView/inc/Game.hpp
+        code/GameView/src/Player.cpp
+        code/GameView/inc/Player.hpp)
 add_executable(retroTanks ${SOURCE_FILES})
 
 target_link_libraries(retroTanks ${SDL2_LIBRARIES} ${SDL2IMAGE_LIBRARIES})

@@ -2,6 +2,5 @@
 
 int main() {
     GameView::Game game;
-
-    return 0;
+    return game.start();
 }
