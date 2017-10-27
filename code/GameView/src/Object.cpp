@@ -8,7 +8,9 @@ Object::Object(Graphics& graphics,
                int sourceX,
                int sourceY,
                int width,
-               int height, float posX, float posY) :
+               int height,
+               int posX,
+               int posY) :
             _x(posX),
             _y(posY)
 {
@@ -30,7 +32,7 @@ void Object::draw(Graphics &graphics, int x, int y) {
                                       y,
                                       _sourceRect.w,
                                       _sourceRect.h };
-    graphics.blitSurface(_objectSheet, &_sourceRect, &destinationRectangle);
+    graphics.render(_objectSheet, &_sourceRect, &destinationRectangle);
 }
 
 void Object::update() {

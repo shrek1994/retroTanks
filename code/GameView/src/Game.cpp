@@ -20,7 +20,7 @@ void Game::gameLoop() {
     Graphics graphics;
     Input input;
     SDL_Event event;
-    _player = std::make_unique<Player>(graphics, "../res/tank_user_1.png", 0, 0, 56, 56, 100, 100, 125);
+    _player = std::make_unique<Player>(graphics, 100, 100);
     _player->setupAnimations();
     _player->playAnimation("Up");
 

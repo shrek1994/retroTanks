@@ -22,7 +22,7 @@ SDL_Surface* Graphics::loadImage(const std::string& filePath) {
     return _spriteSheets[filePath];
 }
 
-void Graphics::blitSurface(SDL_Texture* texture, SDL_Rect* sourceRectangle, SDL_Rect* destinationRectangle) {
+void Graphics::render(SDL_Texture* texture, SDL_Rect* sourceRectangle, SDL_Rect* destinationRectangle) {
     SDL_RenderCopy(_renderer, texture, sourceRectangle, destinationRectangle);
 }
 

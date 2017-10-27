@@ -9,7 +9,7 @@ namespace GameView {
 class AnimatedObject : public Object {
 public:
     AnimatedObject(Graphics& graphics, const std::string& filePath, int sourceX, int sourceY, int width, int height,
-                   float posX, float posY, double timeToUpdate);
+                   int posX, int posY, double timeToUpdate);
 
     /* void playAnimation
      * Plays the animation provided if it's not already playing

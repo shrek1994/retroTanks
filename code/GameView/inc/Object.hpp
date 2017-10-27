@@ -13,8 +13,8 @@ public:
            int sourceY,
            int width,
            int height,
-           float posX,
-           float posY);
+           int posX,
+           int posY);
 
     virtual void draw(Graphics &graphics, int x, int y);
     virtual void update();
@@ -23,7 +23,7 @@ protected:
     SDL_Rect _sourceRect;
     SDL_Texture* _objectSheet;
 
-    float _x, _y;
+    int _x, _y;
 };
 
 

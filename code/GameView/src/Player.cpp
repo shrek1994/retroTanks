@@ -3,24 +3,16 @@
 namespace GameView {
 
 
-Player::Player(Graphics& graphics,
-               const std::string& filePath,
-               int sourceX,
-               int sourceY,
-               int width,
-               int height,
-               float posX,
-               float posY,
-               double timeToUpdate) :
+Player::Player(Graphics& graphics, int posX, int posY) :
         AnimatedObject(graphics,
-                       filePath,
-                       sourceX,
-                       sourceY,
-                       width,
-                       height,
+                       "../res/tank_user_1.png",
+                       0,
+                       0,
+                       56,
+                       56,
                        posX,
                        posY,
-                       timeToUpdate)
+                       125)
 {}
 
 }

@@ -8,8 +8,8 @@ AnimatedObject::AnimatedObject(Graphics& graphics,
                                int sourceY,
                                int width,
                                int height,
-                               float posX,
-                               float posY,
+                               int posX,
+                               int posY,
                                double timeToUpdate) :
         Object(graphics,
                filePath,
@@ -79,7 +79,6 @@ void AnimatedObject::update(int elapsedTime) {
 }
 
 void AnimatedObject::draw(Graphics &graphics, int x, int y) {
-//    Object::draw(graphics,x,y);
     if (_visible) {
         SDL_Rect destinationRectangle;
         destinationRectangle.x = x + _offsets[_currentAnimation].x;
@@ -88,7 +87,7 @@ void AnimatedObject::draw(Graphics &graphics, int x, int y) {
         destinationRectangle.h = _sourceRect.h;
 
         SDL_Rect sourceRect = _animations[_currentAnimation][_frameIndex];
-        graphics.blitSurface(_objectSheet, &sourceRect, &destinationRectangle);
+        graphics.render(_objectSheet, &sourceRect, &destinationRectangle);
     }
 }
 
