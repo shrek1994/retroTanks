@@ -15,7 +15,7 @@ To compile the project you need to install:
 
 For example (ubuntu):
 ```
-$ sudo apt install cmake libsdl2-dev libsdl2-image-devs
+$ sudo apt install cmake libsdl2-dev libsdl2-image-dev
 ```
 
 ### Building
