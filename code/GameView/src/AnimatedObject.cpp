@@ -19,14 +19,15 @@ AnimatedObject::AnimatedObject(Graphics& graphics,
                height,
                posX,
                posY),
-        _timeToUpdate(timeToUpdate)
+        _timeToUpdate(timeToUpdate),
+        _visible(true)
 {}
 
 
 void AnimatedObject::addAnimation(int frames,
                                   int x,
                                   int y,
-                                  Direction direction,
+                                  Animation animation,
                                   int width,
                                   int height,
                                   Offset offset) {
@@ -35,8 +36,8 @@ void AnimatedObject::addAnimation(int frames,
         SDL_Rect newRect = { (i + x) * width, y, width, height };
         rectangles.push_back(newRect);
     }
-    _animations.insert({direction, rectangles});
-    _offsets.insert({direction, offset});
+    _animations.insert({animation, rectangles});
+    _offsets.insert({animation, offset});
 }
 
 void AnimatedObject::resetAnimations() {
@@ -44,10 +45,10 @@ void AnimatedObject::resetAnimations() {
     _offsets.clear();
 }
 
-void AnimatedObject::playAnimation(Direction direction, bool once) {
+void AnimatedObject::playAnimation(Animation animation, bool once) {
     _currentAnimationOnce = once;
-    if (_currentAnimation != direction) {
-        _currentAnimation = direction;
+    if (_currentAnimation != animation) {
+        _currentAnimation = animation;
         _frameIndex = 0;
     }
 }

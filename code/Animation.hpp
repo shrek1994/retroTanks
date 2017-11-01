@@ -1,10 +1,15 @@
 #pragma once
 
-enum class Direction {
+enum class Animation {
     Up,
     Down,
     Left,
-    Right
+    Right,
+    Idle,
+    IdleUp,
+    IdleDown,
+    IdleLeft,
+    IdleRight
 };
 
 //TODO przeniesc to do osobnych plikow

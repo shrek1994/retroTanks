@@ -21,7 +21,7 @@ void Game::gameLoop() {
     Input input;
     SDL_Event event;
     _player = std::make_unique<Player>(graphics, 100, 100);
-    _player->playAnimation(Direction::Right);
+    _player->playAnimation(Animation::Right);
 
     int LAST_UPDATE_TIME = SDL_GetTicks();
 
@@ -34,6 +34,19 @@ void Game::gameLoop() {
             } else if (event.type == SDL_KEYUP) {
                 input.keyUpEvent(event);
             }
+        }
+
+        if (input.isKeyHeld(SDL_SCANCODE_LEFT)) {
+            _player->moveLeft();
+        } else if (input.isKeyHeld(SDL_SCANCODE_RIGHT)) {
+            _player->moveRight();
+        } else if (input.isKeyHeld(SDL_SCANCODE_UP)) {
+            _player->moveUp();
+        } else if (input.isKeyHeld(SDL_SCANCODE_DOWN)) {
+            _player->moveDown();
+        } else if (!input.isKeyHeld(SDL_SCANCODE_LEFT) && !input.isKeyHeld(SDL_SCANCODE_RIGHT)
+            && !input.isKeyHeld(SDL_SCANCODE_UP) && !input.isKeyHeld(SDL_SCANCODE_DOWN)) {
+            _player->stopMoving();
         }
 
         unsigned CURRENT_TIME_MS = SDL_GetTicks();

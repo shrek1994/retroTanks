@@ -26,7 +26,7 @@ set(SOURCE_FILES code/main.cpp
         code/GameView/inc/Object.hpp
         code/GameView/src/AnimatedObject.cpp
         code/GameView/inc/AnimatedObject.hpp
-        code/Direction.hpp
+        code/Animation.hpp
         code/debug.hpp)
 add_executable(retroTanks ${SOURCE_FILES})
 
