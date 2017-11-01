@@ -16,10 +16,10 @@ Graphics::~Graphics() {
 }
 
 SDL_Surface* Graphics::loadImage(const std::string& filePath) {
-    if (_spriteSheets.count(filePath) == 0) {
-        _spriteSheets[filePath] = IMG_Load(filePath.c_str());
+    if (_imageSheets.count(filePath) == 0) {
+        _imageSheets[filePath] = IMG_Load(filePath.c_str());
     }
-    return _spriteSheets[filePath];
+    return _imageSheets[filePath];
 }
 
 void Graphics::render(SDL_Texture* texture, SDL_Rect* sourceRectangle, SDL_Rect* destinationRectangle) {

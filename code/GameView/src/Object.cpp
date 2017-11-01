@@ -1,4 +1,5 @@
 #include <iostream>
+#include "debug.hpp"
 #include "Object.hpp"
 
 namespace GameView {
@@ -22,7 +23,7 @@ Object::Object(Graphics& graphics,
     _objectSheet = SDL_CreateTextureFromSurface(graphics.getRenderer(),
                                                 graphics.loadImage(filePath));
     if (_objectSheet == nullptr) {
-        std::cerr << "Error: Unable to load image\n";
+        ERROR << "Error: Unable to load image\n";
     }
 
 }
