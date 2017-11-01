@@ -5,8 +5,8 @@
 #include "Input.hpp"
 
 namespace {
-    constexpr int FPS = 50;
-    constexpr int MAX_FRAME_TIME = 1000 / FPS;
+    constexpr unsigned FPS = 50;
+    constexpr unsigned MAX_FRAME_TIME = 1000 / FPS;
 }
 
 namespace GameView {
@@ -21,8 +21,7 @@ void Game::gameLoop() {
     Input input;
     SDL_Event event;
     _player = std::make_unique<Player>(graphics, 100, 100);
-    _player->setupAnimations();
-    _player->playAnimation("Up");
+    _player->playAnimation(Direction::Right);
 
     int LAST_UPDATE_TIME = SDL_GetTicks();
 
@@ -30,17 +29,15 @@ void Game::gameLoop() {
         input.beginNewFrame();
 
         if (SDL_PollEvent(&event)) {
-            if (event.type == SDL_KEYDOWN) {
-                if (event.key.repeat == 0) {
-                    input.keyDownEvent(event);
-                }
+            if (event.type == SDL_KEYDOWN && event.key.repeat == 0) {
+                input.keyDownEvent(event);
             } else if (event.type == SDL_KEYUP) {
                 input.keyUpEvent(event);
             }
         }
 
-        const int CURRENT_TIME_MS = SDL_GetTicks();
-        int ELAPSED_TIME_MS = CURRENT_TIME_MS - LAST_UPDATE_TIME;
+        unsigned CURRENT_TIME_MS = SDL_GetTicks();
+        unsigned ELAPSED_TIME_MS = CURRENT_TIME_MS - LAST_UPDATE_TIME;
 
         update(std::min(ELAPSED_TIME_MS, MAX_FRAME_TIME));
         LAST_UPDATE_TIME = CURRENT_TIME_MS;
@@ -52,7 +49,7 @@ void Game::gameLoop() {
 void Game::draw(Graphics& graphics) {
     graphics.clear();
 
-    _player->draw(graphics, 100, 100);
+    _player->draw(graphics);
 
     graphics.flip();
 }

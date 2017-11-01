@@ -26,16 +26,17 @@ AnimatedObject::AnimatedObject(Graphics& graphics,
 void AnimatedObject::addAnimation(int frames,
                                   int x,
                                   int y,
-                                  std::string name,
+                                  Direction direction,
                                   int width,
-                                  int height, Offset offset) {
+                                  int height,
+                                  Offset offset) {
     std::vector<SDL_Rect> rectangles;
     for (int i = 0; i < frames; i++) {
         SDL_Rect newRect = { (i + x) * width, y, width, height };
         rectangles.push_back(newRect);
     }
-    _animations.insert(std::pair<std::string, std::vector<SDL_Rect>>(name, rectangles));
-    _offsets.insert(std::pair<std::string, Offset>(name, offset));
+    _animations.insert({direction, rectangles});
+    _offsets.insert({direction, offset});
 }
 
 void AnimatedObject::resetAnimations() {
@@ -43,10 +44,10 @@ void AnimatedObject::resetAnimations() {
     _offsets.clear();
 }
 
-void AnimatedObject::playAnimation(std::string animation, bool once) {
+void AnimatedObject::playAnimation(Direction direction, bool once) {
     _currentAnimationOnce = once;
-    if (_currentAnimation != animation) {
-        _currentAnimation = animation;
+    if (_currentAnimation != direction) {
+        _currentAnimation = direction;
         _frameIndex = 0;
     }
 }

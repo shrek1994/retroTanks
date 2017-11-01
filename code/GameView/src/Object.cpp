@@ -23,7 +23,8 @@ Object::Object(Graphics& graphics,
     _objectSheet = SDL_CreateTextureFromSurface(graphics.getRenderer(),
                                                 graphics.loadImage(filePath));
     if (_objectSheet == nullptr) {
-        ERROR << "Error: Unable to load image\n";
+        ERROR << "Error: Unable to load image: " << filePath << "\n";
+        std::exit(EXIT_FAILURE);
     }
 
 }

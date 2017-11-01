@@ -31,3 +31,5 @@ set(SOURCE_FILES code/main.cpp
 add_executable(retroTanks ${SOURCE_FILES})
 
 target_link_libraries(retroTanks ${SDL2_LIBRARIES} ${SDL2IMAGE_LIBRARIES})
+
+FILE(COPY res DESTINATION "${CMAKE_BINARY_DIR}")

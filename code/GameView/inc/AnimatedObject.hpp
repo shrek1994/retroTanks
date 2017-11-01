@@ -11,30 +11,31 @@ public:
     AnimatedObject(Graphics& graphics, const std::string& filePath, int sourceX, int sourceY, int width, int height,
                    int posX, int posY, double timeToUpdate);
 
-    void playAnimation(std::string animation, bool once = false);
+    void playAnimation(Direction direction, bool once = false);
 
     void update(int elapsedTime);
 
     void draw(Graphics &graphics, int x, int y);
 
-    virtual void setupAnimations() {
-        addAnimation(2, 0, 0, "Up", 56, 56, Offset{0, 0});
-    };
+    virtual void setupAnimations() = 0;
 protected:
     double _timeToUpdate;
     bool _currentAnimationOnce;
-    std::string _currentAnimation;
+    Direction _currentAnimation;
 
-    void addAnimation(int frames, int x, int y, std::string name, int width, int height, Offset offset);
+    void addAnimation(int frames,
+                      int x, int y,
+                      Direction direction,
+                      int width, int height,
+                      Offset offset = Offset{0,0});
     void resetAnimations();
     void stopAnimation();
     void setVisible(bool visible);
-    virtual void animationDone(std::string currentAnimation) {
-    };
+    virtual void animationDone(Direction currentDirection) {};
 
 private:
-    std::map<std::string, std::vector<SDL_Rect> > _animations;
-    std::map<std::string, Offset> _offsets;
+    std::map<Direction, std::vector<SDL_Rect> > _animations;
+    std::map<Direction, Offset> _offsets;
 
     int _frameIndex;
     double _timeElapsed;
