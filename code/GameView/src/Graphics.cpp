@@ -3,10 +3,19 @@
 
 #include "Graphics.hpp"
 
+#include <iostream>
+#include <cstdlib>
+
 namespace GameView {
 
 Graphics::Graphics() {
-    SDL_CreateWindowAndRenderer(800, 600, 0, &_window, &_renderer);
+    auto win = SDL_CreateWindowAndRenderer(800, 600, 0, &_window, &_renderer);
+    if (win != 0){
+        std::cerr << "SDL_CreateWindow Error: " << SDL_GetError() << std::endl;
+        SDL_Quit();
+        std::exit(EXIT_FAILURE);
+    }
+
     SDL_SetWindowTitle(_window, "Test");
 }
 

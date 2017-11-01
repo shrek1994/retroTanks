@@ -2,4 +2,8 @@
 cmake-build-debug
 build
 res
-
+*.config
+*.creator
+*.user
+*.files
+*.includes
