@@ -5,7 +5,7 @@
 #include "Graphics.hpp"
 #include "debug.hpp"
 
-namespace GameView {
+namespace Game {
 
 Graphics::Graphics() {
     auto result = SDL_CreateWindowAndRenderer(WINDOW_WIGHT, WINDOW_HEIGHT, 0, &_window, &_renderer);
@@ -26,6 +26,11 @@ Graphics::~Graphics() {
 SDL_Surface* Graphics::loadImage(const std::string& filePath) {
     if (_imageSheets.count(filePath) == 0) {
         _imageSheets[filePath] = IMG_Load(filePath.c_str());
+    }
+
+    if (_imageSheets[filePath] == nullptr) {
+        ERROR << "Error: Unable to load image: " << filePath << "\n";
+        std::exit(EXIT_FAILURE);
     }
     return _imageSheets[filePath];
 }

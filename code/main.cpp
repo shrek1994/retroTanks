@@ -1,6 +1,6 @@
 #include "Game.hpp"
 
 int main() {
-    GameView::Game game;
+    Game::Game game;
     return game.start();
 }

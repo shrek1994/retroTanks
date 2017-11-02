@@ -9,7 +9,7 @@ namespace {
     constexpr unsigned MAX_FRAME_TIME = 1000 / FPS;
 }
 
-namespace GameView {
+namespace Game {
 
 Game::Game() {
     SDL_Init(SDL_INIT_EVERYTHING);

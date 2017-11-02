@@ -5,7 +5,7 @@
 #include "Map.hpp"
 #include <memory>
 
-namespace GameView {
+namespace Game {
 
 class Game {
 public:

@@ -2,7 +2,7 @@
 
 #include <AnimatedObject.hpp>
 
-namespace GameView {
+namespace Game {
 
 class Player : public AnimatedObject {
 public:

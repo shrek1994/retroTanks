@@ -3,7 +3,7 @@
 #include <SDL2/SDL.h>
 #include <map>
 
-namespace GameView {
+namespace Game {
 
 class Input {
 public:

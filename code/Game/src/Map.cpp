@@ -1,7 +1,8 @@
+#include <debug.hpp>
 #include "Map.hpp"
 
 
-namespace GameView {
+namespace Game {
 
 Map::Map(std::string mapName, Offset spawnPoint, Graphics& graphics) :
     _mapName(mapName),
@@ -15,6 +16,7 @@ void Map::loadMap(std::string mapName, Graphics& graphics) {
     _background = SDL_CreateTextureFromSurface(
             graphics.getRenderer(),
             graphics.loadImage("res/topDownTanks/Environment/sand.png"));
+    DEBUG << "loading map - DONE!\n";
 }
 
 void Map::draw(Graphics& graphics) {

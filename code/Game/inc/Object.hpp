@@ -3,7 +3,7 @@
 #include <string>
 #include "Graphics.hpp"
 
-namespace GameView {
+namespace Game {
 
 class Object {
 public:

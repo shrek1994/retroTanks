@@ -4,7 +4,7 @@
 #include "Object.hpp"
 #include "Animation.hpp"
 
-namespace GameView {
+namespace Game {
 
 class AnimatedObject : public Object {
 public:

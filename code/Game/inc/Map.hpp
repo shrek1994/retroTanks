@@ -4,7 +4,7 @@
 #include "Animation.hpp"
 #include "Graphics.hpp"
 
-namespace GameView {
+namespace Game {
 
 class Map {
 public:

@@ -2,7 +2,7 @@
 #include "debug.hpp"
 #include "Object.hpp"
 
-namespace GameView {
+namespace Game {
 
 Object::Object(Graphics& graphics,
                const std::string& filePath,

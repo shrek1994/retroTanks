@@ -1,6 +1,6 @@
 #include "AnimatedObject.hpp"
 
-namespace GameView {
+namespace Game {
 
 AnimatedObject::AnimatedObject(Graphics& graphics,
                                const std::string& filePath,

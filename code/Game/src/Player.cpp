@@ -1,7 +1,7 @@
 #include <debug.hpp>
 #include "Player.hpp"
 
-namespace GameView {
+namespace Game {
 
 namespace {
 constexpr double SPEED = 0.3;
@@ -49,7 +49,7 @@ void Player::setupAnimations() {
     addAnimation(2, 0, 170, Animation::Up, 85, 85, Offset{0, 85});
     addAnimation(2, 0, 255, Animation::Right, 85, 85, Offset{0, 85});
 
-    LOG << "loading player animation - DONE!\n";
+    DEBUG << "loading player animation - DONE!\n";
 }
 
 void Player::update(int elapsedTime) {

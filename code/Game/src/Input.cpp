@@ -1,6 +1,6 @@
 #include "Input.hpp"
 
-namespace GameView {
+namespace Game {
 
 void Input::beginNewFrame() {
     _pressedKeys.clear();
