@@ -12,8 +12,8 @@ enum class Animation {
     IdleRight
 };
 
-constexpr int WINDOW_WIGTH = 800;
-constexpr int WINDOW_HEIGTH = 600;
+constexpr int WINDOW_WIGHT = 800;
+constexpr int WINDOW_HEIGHT = 600;
 
 //TODO przeniesc to do osobnych plikow
 

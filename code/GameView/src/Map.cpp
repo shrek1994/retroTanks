@@ -6,7 +6,7 @@ namespace GameView {
 Map::Map(std::string mapName, Offset spawnPoint, Graphics& graphics) :
     _mapName(mapName),
     _spawnPoint(spawnPoint),
-    _size(Offset{WINDOW_WIGTH, WINDOW_HEIGTH})
+    _size(Offset{WINDOW_WIGHT, WINDOW_HEIGHT})
 {
     loadMap(mapName, graphics);
 }

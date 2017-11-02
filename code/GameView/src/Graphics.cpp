@@ -8,7 +8,7 @@
 namespace GameView {
 
 Graphics::Graphics() {
-    auto result = SDL_CreateWindowAndRenderer(WINDOW_WIGTH, WINDOW_HEIGTH, 0, &_window, &_renderer);
+    auto result = SDL_CreateWindowAndRenderer(WINDOW_WIGHT, WINDOW_HEIGHT, 0, &_window, &_renderer);
     if (result){
         ERROR << "SDL_CreateWindow Error: " << SDL_GetError() << std::endl;
         SDL_Quit();
