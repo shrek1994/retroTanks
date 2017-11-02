@@ -20,6 +20,7 @@ void Game::gameLoop() {
     Graphics graphics;
     Input input;
     SDL_Event event;
+    _map = std::make_unique<Map>("level 1", Offset{42, 42}, graphics);
     _player = std::make_unique<Player>(graphics, 100, 100);
     _player->playAnimation(Animation::Right);
 
@@ -62,6 +63,7 @@ void Game::gameLoop() {
 void Game::draw(Graphics& graphics) {
     graphics.clear();
 
+    _map->draw(graphics);
     _player->draw(graphics);
 
     graphics.flip();

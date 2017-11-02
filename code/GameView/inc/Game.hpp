@@ -2,6 +2,7 @@
 
 #include "Graphics.hpp"
 #include "Player.hpp"
+#include "Map.hpp"
 #include <memory>
 
 namespace GameView {
@@ -16,6 +17,7 @@ private:
     void update(int elapsedTime);
 
     std::unique_ptr<Player> _player ;
+    std::unique_ptr<Map> _map;
 };
 
 }

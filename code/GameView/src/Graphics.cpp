@@ -1,5 +1,6 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <Animation.hpp>
 
 #include "Graphics.hpp"
 #include "debug.hpp"
@@ -7,7 +8,7 @@
 namespace GameView {
 
 Graphics::Graphics() {
-    auto result = SDL_CreateWindowAndRenderer(800, 600, 0, &_window, &_renderer);
+    auto result = SDL_CreateWindowAndRenderer(WINDOW_WIGTH, WINDOW_HEIGTH, 0, &_window, &_renderer);
     if (result){
         ERROR << "SDL_CreateWindow Error: " << SDL_GetError() << std::endl;
         SDL_Quit();

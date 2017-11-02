@@ -27,7 +27,7 @@ set(SOURCE_FILES code/main.cpp
         code/GameView/src/AnimatedObject.cpp
         code/GameView/inc/AnimatedObject.hpp
         code/Animation.hpp
-        code/debug.hpp)
+        code/debug.hpp code/GameView/src/Map.cpp code/GameView/inc/Map.hpp)
 add_executable(retroTanks ${SOURCE_FILES})
 
 target_link_libraries(retroTanks ${SDL2_LIBRARIES} ${SDL2IMAGE_LIBRARIES})
