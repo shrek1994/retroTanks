@@ -9,11 +9,7 @@ Object::Object(Graphics& graphics,
                int sourceX,
                int sourceY,
                int width,
-               int height,
-               int posX,
-               int posY) :
-            _x(posX),
-            _y(posY)
+               int height)
 {
     _sourceRect.x = sourceX;
     _sourceRect.y = sourceY;
@@ -36,10 +32,5 @@ void Object::draw(Graphics &graphics, int x, int y) {
                                       _sourceRect.h };
     graphics.render(_objectSheet, &_sourceRect, &destinationRectangle);
 }
-
-void Object::update() {
-
-}
-
 
 }

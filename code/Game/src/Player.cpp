@@ -49,7 +49,7 @@ void Player::setupAnimations() {
     addAnimation(2, 0, 170, Animation::Up, 85, 85, Offset{0, 85});
     addAnimation(2, 0, 255, Animation::Right, 85, 85, Offset{0, 85});
 
-    DEBUG << "loading player animation - DONE!\n";
+    DEBUG << "Loading player animation - DONE!\n";
 }
 
 void Player::update(int elapsedTime) {

@@ -12,18 +12,17 @@ public:
            int sourceX,
            int sourceY,
            int width,
-           int height,
-           int posX,
-           int posY);
+           int height);
 
-    virtual void draw(Graphics &graphics, int x, int y);
-    virtual void update();
+    virtual void draw(Graphics& graphics) = 0;
+    virtual void update(int elapsedTime) = 0;
     virtual ~Object() = default;
+
 protected:
+    virtual void draw(Graphics& graphics, int x, int y);
+
     SDL_Rect _sourceRect;
     SDL_Texture* _objectSheet;
-
-    int _x, _y;
 };
 
 

@@ -16,7 +16,12 @@ void Map::loadMap(std::string mapName, Graphics& graphics) {
     _background = SDL_CreateTextureFromSurface(
             graphics.getRenderer(),
             graphics.loadImage("res/topDownTanks/Environment/sand.png"));
-    DEBUG << "loading map - DONE!\n";
+    if (_background == nullptr) {
+        ERROR << "Error: Unable to load map: " << mapName << "\n";
+        SDL_Quit();
+        std::exit(EXIT_FAILURE);
+    }
+    DEBUG << "Loading map - DONE!\n";
 }
 
 void Map::draw(Graphics& graphics) {

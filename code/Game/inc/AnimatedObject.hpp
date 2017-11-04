@@ -11,13 +11,12 @@ public:
     AnimatedObject(Graphics& graphics, const std::string& filePath, int sourceX, int sourceY, int width, int height,
                    int posX, int posY, double timeToUpdate);
 
+    virtual void setupAnimations() = 0;
+
     void playAnimation(Animation animation, bool once = false);
-
     virtual void update(int elapsedTime);
-
     void draw(Graphics &graphics, int x, int y);
 
-    virtual void setupAnimations() = 0;
 protected:
     double _timeToUpdate;
     bool _currentAnimationOnce;
@@ -28,6 +27,7 @@ protected:
                       Animation animation,
                       int width, int height,
                       Offset offset = Offset{0,0});
+
     void resetAnimations();
     void stopAnimation();
     void setVisible(bool visible);

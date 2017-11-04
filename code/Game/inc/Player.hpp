@@ -9,8 +9,8 @@ public:
     Player(Graphics& graphics, int posX, int posY);
 
     void setupAnimations() override;
-    void update(int elapsedTime) override ;
-    void draw(Graphics& graphics);
+    void update(int elapsedTime) override;
+    void draw(Graphics& graphics) override;
 
     void moveLeft();
     void moveRight();

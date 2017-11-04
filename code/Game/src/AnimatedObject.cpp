@@ -16,9 +16,7 @@ AnimatedObject::AnimatedObject(Graphics& graphics,
                sourceX,
                sourceY,
                width,
-               height,
-               posX,
-               posY),
+               height),
         _timeToUpdate(timeToUpdate),
         _visible(true)
 {}
@@ -63,8 +61,6 @@ void AnimatedObject::stopAnimation() {
 }
 
 void AnimatedObject::update(int elapsedTime) {
-    Object::update();
-
     _timeElapsed += elapsedTime;
     if (_timeElapsed > _timeToUpdate) {
         _timeElapsed -= _timeToUpdate;

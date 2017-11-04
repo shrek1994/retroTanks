@@ -1,5 +1,6 @@
 #include <SDL2/SDL.h>
 #include <memory>
+#include <debug.hpp>
 
 #include "Game.hpp"
 #include "Input.hpp"
@@ -21,8 +22,7 @@ void Game::gameLoop() {
     Input input;
     SDL_Event event;
     _map = std::make_unique<Map>("level 1", Offset{42, 42}, graphics);
-    _player = std::make_unique<Player>(graphics, 100, 100);
-    _player->playAnimation(Animation::Right);
+    _player = std::make_unique<Player>(graphics, 0, 0);
 
     int LAST_UPDATE_TIME = SDL_GetTicks();
 
@@ -58,6 +58,7 @@ void Game::gameLoop() {
 
         draw(graphics);
     } while (event.type != SDL_QUIT);
+    DEBUG << "Ending game - correctly\n";
 }
 
 void Game::draw(Graphics& graphics) {

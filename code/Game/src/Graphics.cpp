@@ -9,13 +9,13 @@ namespace Game {
 
 Graphics::Graphics() {
     auto result = SDL_CreateWindowAndRenderer(WINDOW_WIGHT, WINDOW_HEIGHT, 0, &_window, &_renderer);
-    if (result){
+    if (result || _window == nullptr || _renderer == nullptr){
         ERROR << "SDL_CreateWindow Error: " << SDL_GetError() << std::endl;
         SDL_Quit();
         std::exit(EXIT_FAILURE);
     }
 
-    SDL_SetWindowTitle(_window, "Test");
+    SDL_SetWindowTitle(_window, "Retro Tanks");
 }
 
 Graphics::~Graphics() {
@@ -26,12 +26,15 @@ Graphics::~Graphics() {
 SDL_Surface* Graphics::loadImage(const std::string& filePath) {
     if (_imageSheets.count(filePath) == 0) {
         _imageSheets[filePath] = IMG_Load(filePath.c_str());
+        if (_imageSheets[filePath] == nullptr) {
+            ERROR << "Error: Unable to load image: " << filePath << "\n";
+            SDL_Quit();
+            std::exit(EXIT_FAILURE);
+        }
     }
 
-    if (_imageSheets[filePath] == nullptr) {
-        ERROR << "Error: Unable to load image: " << filePath << "\n";
-        std::exit(EXIT_FAILURE);
-    }
+    DEBUG << "Loading img: " << filePath << " - DONE!\n";
+
     return _imageSheets[filePath];
 }
 
