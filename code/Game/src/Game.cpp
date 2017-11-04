@@ -18,35 +18,26 @@ Game::Game() {
 
 
 void Game::gameLoop() {
-    Graphics graphics;
-    Input input;
-    SDL_Event event;
+    auto graphics = std::make_unique<Graphics>();
+    auto input = std::make_unique<Input>();
     _map = std::make_unique<Map>("level 1", Offset{42, 42}, graphics);
     _player = std::make_unique<Player>(graphics, 0, 0);
 
     int LAST_UPDATE_TIME = SDL_GetTicks();
 
     do {
-        input.beginNewFrame();
+        input->beginNewFrame();
 
-        if (SDL_PollEvent(&event)) {
-            if (event.type == SDL_KEYDOWN && event.key.repeat == 0) {
-                input.keyDownEvent(event);
-            } else if (event.type == SDL_KEYUP) {
-                input.keyUpEvent(event);
-            }
-        }
-
-        if (input.isKeyHeld(SDL_SCANCODE_LEFT)) {
+        if (input->isKeyHeld(SDL_SCANCODE_LEFT)) {
             _player->moveLeft();
-        } else if (input.isKeyHeld(SDL_SCANCODE_RIGHT)) {
+        } else if (input->isKeyHeld(SDL_SCANCODE_RIGHT)) {
             _player->moveRight();
-        } else if (input.isKeyHeld(SDL_SCANCODE_UP)) {
+        } else if (input->isKeyHeld(SDL_SCANCODE_UP)) {
             _player->moveUp();
-        } else if (input.isKeyHeld(SDL_SCANCODE_DOWN)) {
+        } else if (input->isKeyHeld(SDL_SCANCODE_DOWN)) {
             _player->moveDown();
-        } else if (!input.isKeyHeld(SDL_SCANCODE_LEFT) && !input.isKeyHeld(SDL_SCANCODE_RIGHT)
-            && !input.isKeyHeld(SDL_SCANCODE_UP) && !input.isKeyHeld(SDL_SCANCODE_DOWN)) {
+        } else if (!input->isKeyHeld(SDL_SCANCODE_LEFT) && !input->isKeyHeld(SDL_SCANCODE_RIGHT)
+            && !input->isKeyHeld(SDL_SCANCODE_UP) && !input->isKeyHeld(SDL_SCANCODE_DOWN)) {
             _player->stopMoving();
         }
 
@@ -56,8 +47,9 @@ void Game::gameLoop() {
         update(std::min(ELAPSED_TIME_MS, MAX_FRAME_TIME));
         LAST_UPDATE_TIME = CURRENT_TIME_MS;
 
-        draw(graphics);
-    } while (event.type != SDL_QUIT);
+        draw(*graphics);
+    } while (input->isGameTerminated());
+
     DEBUG << "Ending game - correctly\n";
 }
 
