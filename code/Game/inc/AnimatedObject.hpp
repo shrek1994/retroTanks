@@ -8,8 +8,11 @@ namespace Game {
 
 class AnimatedObject : public Object {
 public:
-    AnimatedObject(Graphics& graphics, const std::string& filePath, int sourceX, int sourceY, int width, int height,
-                   int posX, int posY, double timeToUpdate);
+    AnimatedObject(Graphics& graphics,
+                   const std::string& filePath,
+                   int sourceX, int sourceY,
+                   int width, int height,
+                   double timeToUpdate);
 
     virtual void setupAnimations() = 0;
 

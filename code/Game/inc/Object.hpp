@@ -22,7 +22,7 @@ protected:
     virtual void draw(Graphics& graphics, int x, int y);
 
     SDL_Rect _sourceRect;
-    SDL_Texture* _objectSheet;
+    SDL_Texture* _objectTexture;
 };
 
 

@@ -9,8 +9,6 @@ AnimatedObject::AnimatedObject(Graphics& graphics,
                                int sourceY,
                                int width,
                                int height,
-                               int posX,
-                               int posY,
                                double timeToUpdate) :
         Object(graphics,
                filePath,
@@ -97,7 +95,7 @@ void AnimatedObject::draw(Graphics &graphics, int x, int y) {
         }
 
         SDL_Rect sourceRect = _animations[_currentAnimation][_frameIndex];
-        graphics.render(_objectSheet, &sourceRect, &destinationRectangle);
+        graphics.render(_objectTexture, &sourceRect, &destinationRectangle);
     }
 }
 

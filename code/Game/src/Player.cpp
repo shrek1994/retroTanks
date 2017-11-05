@@ -30,8 +30,6 @@ Player::Player(Graphics& graphics, int posX, int posY) :
                        0,
                        85,
                        85,
-                       posX,
-                       posY,
                        125),
         _x(posX), _y(posY), _direction(Animation::IdleUp)
 {

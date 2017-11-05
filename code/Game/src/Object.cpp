@@ -16,9 +16,9 @@ Object::Object(Graphics& graphics,
     _sourceRect.w = width;
     _sourceRect.h = height;
 
-    _objectSheet = SDL_CreateTextureFromSurface(graphics.getRenderer(),
+    _objectTexture = SDL_CreateTextureFromSurface(graphics.getRenderer(),
                                                 graphics.loadImage(filePath));
-    if (_objectSheet == nullptr) {
+    if (_objectTexture == nullptr) {
         ERROR << "Error: Unable to load image: " << filePath << "\n";
         std::exit(EXIT_FAILURE);
     }
@@ -30,7 +30,7 @@ void Object::draw(Graphics &graphics, int x, int y) {
                                       y,
                                       _sourceRect.w,
                                       _sourceRect.h };
-    graphics.render(_objectSheet, &_sourceRect, &destinationRectangle);
+    graphics.render(_objectTexture, &_sourceRect, &destinationRectangle);
 }
 
 }
