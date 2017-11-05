@@ -1,10 +1,10 @@
 #include <debug.hpp>
+#include <Constants.hpp>
 #include "Player.hpp"
 
 namespace Game {
 
 namespace {
-constexpr double SPEED = 0.3;
 
 Animation getIdle(Animation animation) {
     switch (animation) {
@@ -28,8 +28,8 @@ Player::Player(Graphics& graphics, int posX, int posY) :
                        "res/playerTank.png",
                        0,
                        0,
-                       85,
-                       85,
+                       TANK_HEIGHT,
+                       TANK_WIGHT,
                        125),
         _x(posX), _y(posY), _direction(Animation::IdleUp)
 {
@@ -37,15 +37,15 @@ Player::Player(Graphics& graphics, int posX, int posY) :
 }
 
 void Player::setupAnimations() {
-    addAnimation(1, 0, 0, Animation::IdleDown, 85, 85, Offset{0, 85});
-    addAnimation(1, 0, 85, Animation::IdleLeft, 85, 85, Offset{0, 85});
-    addAnimation(1, 0, 170, Animation::IdleUp, 85, 85, Offset{0, 85});
-    addAnimation(1, 0, 255, Animation::IdleRight, 85, 85, Offset{0, 85});
+    addAnimation(1, 0, 0, Animation::IdleDown, TANK_WIGHT, TANK_HEIGHT, SDL_Point{0, TANK_HEIGHT});
+    addAnimation(1, 0, TANK_HEIGHT, Animation::IdleLeft, TANK_WIGHT, TANK_HEIGHT, SDL_Point{0, TANK_HEIGHT});
+    addAnimation(1, 0, 2*TANK_HEIGHT, Animation::IdleUp, TANK_WIGHT, TANK_HEIGHT, SDL_Point{0, TANK_HEIGHT});
+    addAnimation(1, 0, 3*TANK_HEIGHT, Animation::IdleRight, TANK_WIGHT, TANK_HEIGHT, SDL_Point{0, TANK_HEIGHT});
 
-    addAnimation(2, 0, 0, Animation::Down, 85, 85, Offset{0, 85});
-    addAnimation(2, 0, 85, Animation::Left, 85, 85, Offset{0, 85});
-    addAnimation(2, 0, 170, Animation::Up, 85, 85, Offset{0, 85});
-    addAnimation(2, 0, 255, Animation::Right, 85, 85, Offset{0, 85});
+    addAnimation(2, 0, 0, Animation::Down, TANK_WIGHT, TANK_HEIGHT, SDL_Point{0, TANK_HEIGHT});
+    addAnimation(2, 0, TANK_HEIGHT, Animation::Left, TANK_WIGHT, TANK_HEIGHT, SDL_Point{0, TANK_HEIGHT});
+    addAnimation(2, 0, 2*TANK_HEIGHT, Animation::Up, TANK_WIGHT, TANK_HEIGHT, SDL_Point{0, TANK_HEIGHT});
+    addAnimation(2, 0, 3*TANK_HEIGHT, Animation::Right, TANK_WIGHT, TANK_HEIGHT, SDL_Point{0, TANK_HEIGHT});
 
     DEBUG << "Loading player animation - DONE!\n";
 }
@@ -53,6 +53,9 @@ void Player::setupAnimations() {
 void Player::update(int elapsedTime) {
     _x += _dx * elapsedTime;
     _y += _dy * elapsedTime;
+
+    _x < 0 ? _x = 0 : 0;
+    _y < 0 ? _y = 0 : 0;
 
     AnimatedObject::update(elapsedTime);
 }

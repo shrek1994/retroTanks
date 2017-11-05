@@ -4,6 +4,7 @@
 
 #include "Graphics.hpp"
 #include "debug.hpp"
+#include "Constants.hpp"
 
 namespace Game {
 

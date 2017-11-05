@@ -1,4 +1,5 @@
 #include <iostream>
+#include <Constants.hpp>
 #include "debug.hpp"
 #include "Object.hpp"
 
@@ -28,8 +29,8 @@ Object::Object(Graphics& graphics,
 void Object::draw(Graphics &graphics, int x, int y) {
     SDL_Rect destinationRectangle = { x,
                                       y,
-                                      _sourceRect.w,
-                                      _sourceRect.h };
+                                      static_cast<int>(_sourceRect.w * SCALE_WIGHT),
+                                      static_cast<int>(_sourceRect.h * SCALE_HEIGHT)};
     graphics.render(_objectTexture, &_sourceRect, &destinationRectangle);
 }
 

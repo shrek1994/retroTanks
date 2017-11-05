@@ -41,10 +41,7 @@ inline std::ostream& operator << (std::ostream& out, Animation animation)
 }
 
 //TODO przeniesc to do osobnych plikow
-
-constexpr int WINDOW_WIGHT = 800;
-constexpr int WINDOW_HEIGHT = 600;
-
-struct Offset {
-    int x, y;
-};
+//
+//struct SDL_Point {
+//    int x, y;
+//};

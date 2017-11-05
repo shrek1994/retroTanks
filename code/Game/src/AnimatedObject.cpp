@@ -1,4 +1,5 @@
 #include <debug.hpp>
+#include <Constants.hpp>
 #include "AnimatedObject.hpp"
 
 namespace Game {
@@ -31,7 +32,7 @@ void AnimatedObject::addAnimation(int frames,
                                   Animation animation,
                                   int width,
                                   int height,
-                                  Offset offset) {
+                                  SDL_Point offset) {
     std::vector<SDL_Rect> rectangles;
     for (int i = 0; i < frames; i++) {
         SDL_Rect newRect = { (i + x) * width, y, width, height };
@@ -81,11 +82,10 @@ void AnimatedObject::update(int elapsedTime) {
 
 void AnimatedObject::draw(Graphics &graphics, int x, int y) {
     if (_visible) {
-        SDL_Rect destinationRectangle;
-        destinationRectangle.x = x + _offsets[_currentAnimation].x;
-        destinationRectangle.y = y + _offsets[_currentAnimation].y;
-        destinationRectangle.w = _sourceRect.w;
-        destinationRectangle.h = _sourceRect.h;
+        SDL_Rect destinationRectangle = { x,
+                                          y,
+                                          static_cast<int>(_sourceRect.w * SCALE_WIGHT),
+                                          static_cast<int>(_sourceRect.h * SCALE_HEIGHT)};
 
         if (static_cast<int>(_currentAnimation) > 8 || _frameIndex < 0)
         {

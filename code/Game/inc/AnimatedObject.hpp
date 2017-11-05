@@ -29,7 +29,7 @@ protected:
                       int x, int y,
                       Animation animation,
                       int width, int height,
-                      Offset offset = Offset{0,0});
+                      SDL_Point offset = SDL_Point{0,0});
 
     void resetAnimations();
     void stopAnimation();
@@ -38,7 +38,7 @@ protected:
 
 private:
     std::map<Animation, std::vector<SDL_Rect> > _animations;
-    std::map<Animation, Offset> _offsets;
+    std::map<Animation, SDL_Point> _offsets;
 
     int _frameIndex;
     double _timeElapsed = 0;

@@ -1,13 +1,14 @@
 #include <debug.hpp>
+#include <Constants.hpp>
 #include "Map.hpp"
 
 
 namespace Game {
 
-Map::Map(std::string mapName, Offset spawnPoint, Graphics& graphics) :
+Map::Map(std::string mapName, SDL_Point spawnPoint, Graphics& graphics) :
     _mapName(mapName),
     _spawnPoint(spawnPoint),
-    _size(Offset{WINDOW_WIGHT, WINDOW_HEIGHT})
+    _size(SDL_Point{WINDOW_WIGHT, WINDOW_HEIGHT})
 {
     loadMap(mapName, graphics);
 }

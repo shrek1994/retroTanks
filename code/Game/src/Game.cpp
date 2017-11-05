@@ -21,8 +21,8 @@ Game::Game() {
 void Game::gameLoop() {
     auto graphics = std::make_unique<Graphics>();
     auto input = std::make_unique<Input>();
-    _map = std::make_unique<Map>("level 1", Offset{42, 42}, *graphics);
-    _player = std::make_unique<Player>(*graphics, 0, 0);
+    _map = std::make_unique<Map>("level 1", SDL_Point{42, 42}, *graphics);
+    _player = std::make_unique<Player>(*graphics, 100, 100);
     bullets = std::vector<Bullet>{
             Bullet{*graphics, 20,20, Animation::Up},
             Bullet{*graphics, 40,40, Animation::Down},
