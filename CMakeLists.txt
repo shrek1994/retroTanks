@@ -30,6 +30,8 @@ set(SOURCE_FILES code/main.cpp
         code/debug.hpp
         code/Game/src/Map.cpp
         code/Game/inc/Map.hpp
+        code/Game/src/Bullet.cpp
+        code/Game/inc/Bullet.hpp
         )
 add_executable(retroTanks ${SOURCE_FILES})
 

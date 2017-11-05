@@ -1,3 +1,4 @@
+#include <debug.hpp>
 #include "AnimatedObject.hpp"
 
 namespace Game {
@@ -18,7 +19,11 @@ AnimatedObject::AnimatedObject(Graphics& graphics,
                width,
                height),
         _timeToUpdate(timeToUpdate),
+        _currentAnimationOnce(false),
+        _currentAnimation(Animation::IdleUp),
+        _frameIndex(0),
         _visible(true)
+
 {}
 
 
@@ -83,6 +88,13 @@ void AnimatedObject::draw(Graphics &graphics, int x, int y) {
         destinationRectangle.y = y + _offsets[_currentAnimation].y;
         destinationRectangle.w = _sourceRect.w;
         destinationRectangle.h = _sourceRect.h;
+
+        if (static_cast<int>(_currentAnimation) > 8 || _frameIndex < 0)
+        {
+            //TODO repair it !
+            ERROR << "SEGMENTATION FAULT REASON: _currentAnimation has invalid value: " << _currentAnimation << ", "
+                  << "or_frameIndex has invalid value: " << _frameIndex << "\n";
+        }
 
         SDL_Rect sourceRect = _animations[_currentAnimation][_frameIndex];
         graphics.render(_objectSheet, &sourceRect, &destinationRectangle);

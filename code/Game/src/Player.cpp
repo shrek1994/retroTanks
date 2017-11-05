@@ -33,7 +33,7 @@ Player::Player(Graphics& graphics, int posX, int posY) :
                        posX,
                        posY,
                        125),
-        _x(posX), _y(posY)
+        _x(posX), _y(posY), _direction(Animation::IdleUp)
 {
     setupAnimations();
 }

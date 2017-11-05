@@ -1,6 +1,7 @@
 #include <SDL2/SDL.h>
 #include <memory>
 #include <debug.hpp>
+#include <Game/inc/Bullet.hpp>
 
 #include "Game.hpp"
 #include "Input.hpp"
@@ -20,32 +21,42 @@ Game::Game() {
 void Game::gameLoop() {
     auto graphics = std::make_unique<Graphics>();
     auto input = std::make_unique<Input>();
-    _map = std::make_unique<Map>("level 1", Offset{42, 42}, graphics);
-    _player = std::make_unique<Player>(graphics, 0, 0);
+    _map = std::make_unique<Map>("level 1", Offset{42, 42}, *graphics);
+    _player = std::make_unique<Player>(*graphics, 0, 0);
+    bullets = std::vector<Bullet>{
+            Bullet{*graphics, 20,20, Animation::Up},
+            Bullet{*graphics, 40,40, Animation::Down},
+            Bullet{*graphics, 60,60, Animation::Left},
+            Bullet{*graphics, 80,80, Animation::Right},
+    };
 
-    int LAST_UPDATE_TIME = SDL_GetTicks();
+    auto lastUpdateTime = SDL_GetTicks();
 
     do {
         input->beginNewFrame();
 
-        if (input->isKeyHeld(SDL_SCANCODE_LEFT)) {
+        if (input->isKeyHeld(SDL_SCANCODE_LEFT) || input->isKeyHeld(SDL_SCANCODE_A)) {
             _player->moveLeft();
-        } else if (input->isKeyHeld(SDL_SCANCODE_RIGHT)) {
+        } else if (input->isKeyHeld(SDL_SCANCODE_RIGHT) || input->isKeyHeld(SDL_SCANCODE_D)) {
             _player->moveRight();
-        } else if (input->isKeyHeld(SDL_SCANCODE_UP)) {
+        } else if (input->isKeyHeld(SDL_SCANCODE_UP) || input->isKeyHeld(SDL_SCANCODE_W)) {
             _player->moveUp();
-        } else if (input->isKeyHeld(SDL_SCANCODE_DOWN)) {
+        } else if (input->isKeyHeld(SDL_SCANCODE_DOWN) || input->isKeyHeld(SDL_SCANCODE_S)) {
             _player->moveDown();
         } else if (!input->isKeyHeld(SDL_SCANCODE_LEFT) && !input->isKeyHeld(SDL_SCANCODE_RIGHT)
             && !input->isKeyHeld(SDL_SCANCODE_UP) && !input->isKeyHeld(SDL_SCANCODE_DOWN)) {
             _player->stopMoving();
         }
 
-        unsigned CURRENT_TIME_MS = SDL_GetTicks();
-        unsigned ELAPSED_TIME_MS = CURRENT_TIME_MS - LAST_UPDATE_TIME;
 
-        update(std::min(ELAPSED_TIME_MS, MAX_FRAME_TIME));
-        LAST_UPDATE_TIME = CURRENT_TIME_MS;
+
+        auto currentTimeMs = SDL_GetTicks();
+        auto elapsedTimeMs = currentTimeMs - lastUpdateTime;
+
+        update(std::min(elapsedTimeMs, MAX_FRAME_TIME));
+        lastUpdateTime = currentTimeMs;
+
+
 
         draw(*graphics);
     } while (input->isGameTerminated());
@@ -58,6 +69,11 @@ void Game::draw(Graphics& graphics) {
 
     _map->draw(graphics);
     _player->draw(graphics);
+
+    for(auto bullet : bullets)
+    {
+        bullet.draw(graphics);
+    }
 
     graphics.flip();
 }

@@ -31,9 +31,8 @@ SDL_Surface* Graphics::loadImage(const std::string& filePath) {
             SDL_Quit();
             std::exit(EXIT_FAILURE);
         }
+        DEBUG << "Loading img: " << filePath << " - DONE!\n";
     }
-
-    DEBUG << "Loading img: " << filePath << " - DONE!\n";
 
     return _imageSheets[filePath];
 }

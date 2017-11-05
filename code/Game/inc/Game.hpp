@@ -3,6 +3,7 @@
 #include "Graphics.hpp"
 #include "Player.hpp"
 #include "Map.hpp"
+#include "Bullet.hpp"
 #include <memory>
 
 namespace Game {
@@ -18,6 +19,7 @@ private:
 
     std::unique_ptr<Player> _player ;
     std::unique_ptr<Map> _map;
+    std::vector<Bullet> bullets;
 };
 
 }

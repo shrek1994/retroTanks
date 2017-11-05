@@ -38,7 +38,7 @@ private:
     std::map<Animation, Offset> _offsets;
 
     int _frameIndex;
-    double _timeElapsed;
+    double _timeElapsed = 0;
     bool _visible;
 };
 
