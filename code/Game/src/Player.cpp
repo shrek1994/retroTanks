@@ -54,10 +54,10 @@ void Player::update(int elapsedTime) {
     _x += _dx * elapsedTime;
     _y += _dy * elapsedTime;
 
-    _x < 0 ? _x = 0 : 0;
-    _x  > WINDOW_WIGHT - getWight() ? _x = WINDOW_WIGHT - getWight() : 0;
-    _y < 0 ? _y = 0 : 0;
-    _y > WINDOW_HEIGHT - getHeight() ? _y = WINDOW_HEIGHT - getHeight() : 0;
+    _x < getWight() / 2 ? _x = getWight() / 2 : 0;
+    _x  > WINDOW_WIGHT - getWight() / 2 ? _x = WINDOW_WIGHT - getWight() / 2 : 0;
+    _y < getHeight() / 2 ? _y = getHeight() / 2 : 0;
+    _y > WINDOW_HEIGHT - getHeight() / 2 ? _y = WINDOW_HEIGHT - getHeight() / 2 : 0;
 
     AnimatedObject::update(elapsedTime);
 }
@@ -125,15 +125,13 @@ Bullet Player::createBullet(Graphics& graphics) {
     auto posY = _y;
 
     if (direction == Animation::Left) {
-        posY += TANK_HEIGHT / 2 * SCALE_HEIGHT;
+        posX -= TANK_WIGHT / 2 * SCALE_HEIGHT;
     } else if (direction == Animation::Right) {
-        posX += TANK_WIGHT * SCALE_WIGHT;
-        posY += TANK_HEIGHT / 2 * SCALE_HEIGHT;
+        posX += TANK_WIGHT / 2 * SCALE_HEIGHT;
     } else if (direction == Animation::Up) {
-        posX += TANK_WIGHT / 2 * SCALE_WIGHT;
+        posY -= TANK_HEIGHT / 2 * SCALE_HEIGHT;
     } else if (direction == Animation::Down) {
-        posX += TANK_WIGHT / 2 * SCALE_WIGHT;
-        posY += TANK_HEIGHT * SCALE_HEIGHT;
+        posY += TANK_HEIGHT / 2 * SCALE_HEIGHT;
     }
 
 

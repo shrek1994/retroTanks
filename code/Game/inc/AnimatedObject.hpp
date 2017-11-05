@@ -18,7 +18,7 @@ public:
 
     void playAnimation(Animation animation, bool once = false);
     void update(int elapsedTime) override ;
-    void draw(Graphics &graphics, int x, int y);
+    void draw(Graphics &graphics, int centerX, int centerY);
     bool isVisible();
 
 protected:

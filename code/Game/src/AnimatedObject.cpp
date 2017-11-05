@@ -80,12 +80,12 @@ void AnimatedObject::update(int elapsedTime) {
     }
 }
 
-void AnimatedObject::draw(Graphics &graphics, int x, int y) {
+void AnimatedObject::draw(Graphics &graphics, int centerX, int centerY) {
     if (_visible) {
-        SDL_Rect destinationRectangle = { x,
-                                          y,
-                                          static_cast<int>(_sourceRect.w * SCALE_WIGHT),
-                                          static_cast<int>(_sourceRect.h * SCALE_HEIGHT)};
+        SDL_Rect destinationRectangle = { centerX - getWight() / 2,
+                                          centerY - getHeight() / 2,
+                                          getWight(),
+                                          getHeight() };
 
         if (static_cast<int>(_currentAnimation) > 8 || _frameIndex < 0)
         {

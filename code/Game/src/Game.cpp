@@ -37,7 +37,9 @@ void Game::gameLoop() {
         }
 
         if (input->wasKeyPressed(SDL_SCANCODE_LCTRL)) {
-            _bullets.push_back(_player->createBullet(*_graphics));
+            auto bullet = _player->createBullet(*_graphics);
+            _bullets.push_back(bullet);
+            _smokes.push_back(bullet.createSmoke(*_graphics));
         }
 
 
