@@ -18,8 +18,11 @@ public:
     virtual void update(int elapsedTime) = 0;
     virtual ~Object() = default;
 
+    double getWight();
+    double getHeight();
+
 protected:
-    virtual void draw(Graphics& graphics, int x, int y);
+    virtual void draw(Graphics& graphics, int centerX, int centerY);
 
     SDL_Rect _sourceRect;
     SDL_Texture* _objectTexture;

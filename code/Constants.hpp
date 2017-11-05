@@ -1,8 +1,12 @@
 #pragma once
 
-constexpr unsigned AREAS_PER_SIDE = 10;
+constexpr unsigned FPS = 50;
+constexpr unsigned MAX_FRAME_TIME = 1000 / FPS;
 
-constexpr unsigned WINDOW_WIGHT = 600;
+
+constexpr unsigned AREAS_PER_SIDE = 15;
+
+constexpr unsigned WINDOW_WIGHT = 700;
 constexpr unsigned WINDOW_HEIGHT = WINDOW_WIGHT;
 
 constexpr int TANK_HEIGHT = 85;

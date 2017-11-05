@@ -5,6 +5,7 @@
 #include "Map.hpp"
 #include "Bullet.hpp"
 #include <memory>
+#include <list>
 
 namespace Game {
 
@@ -19,7 +20,7 @@ private:
 
     std::unique_ptr<Player> _player ;
     std::unique_ptr<Map> _map;
-    std::vector<Bullet> bullets;
+    std::list<Bullet> _bullets;
 };
 
 }

@@ -6,11 +6,6 @@
 #include "Game.hpp"
 #include "Input.hpp"
 
-namespace {
-    constexpr unsigned FPS = 50;
-    constexpr unsigned MAX_FRAME_TIME = 1000 / FPS;
-}
-
 namespace Game {
 
 Game::Game() {
@@ -23,12 +18,6 @@ void Game::gameLoop() {
     auto input = std::make_unique<Input>();
     _map = std::make_unique<Map>("level 1", SDL_Point{42, 42}, *graphics);
     _player = std::make_unique<Player>(*graphics, 100, 100);
-    bullets = std::vector<Bullet>{
-            Bullet{*graphics, 20,20, Animation::Up},
-            Bullet{*graphics, 40,40, Animation::Down},
-            Bullet{*graphics, 60,60, Animation::Left},
-            Bullet{*graphics, 80,80, Animation::Right},
-    };
 
     auto lastUpdateTime = SDL_GetTicks();
 
@@ -43,9 +32,12 @@ void Game::gameLoop() {
             _player->moveUp();
         } else if (input->isKeyHeld(SDL_SCANCODE_DOWN) || input->isKeyHeld(SDL_SCANCODE_S)) {
             _player->moveDown();
-        } else if (!input->isKeyHeld(SDL_SCANCODE_LEFT) && !input->isKeyHeld(SDL_SCANCODE_RIGHT)
-            && !input->isKeyHeld(SDL_SCANCODE_UP) && !input->isKeyHeld(SDL_SCANCODE_DOWN)) {
+        } else {
             _player->stopMoving();
+        }
+
+        if (input->wasKeyPressed(SDL_SCANCODE_LCTRL)) {
+            _bullets.push_back(_player->createBullet(*graphics));
         }
 
 
@@ -53,10 +45,12 @@ void Game::gameLoop() {
         auto currentTimeMs = SDL_GetTicks();
         auto elapsedTimeMs = currentTimeMs - lastUpdateTime;
 
+        //TODO czy powinien byc sleep ?
+        auto sleepMs = MAX_FRAME_TIME - elapsedTimeMs > MAX_FRAME_TIME ? 0 : MAX_FRAME_TIME - elapsedTimeMs;
+        SDL_Delay(sleepMs);
+
         update(std::min(elapsedTimeMs, MAX_FRAME_TIME));
         lastUpdateTime = currentTimeMs;
-
-
 
         draw(*graphics);
     } while (input->isGameTerminated());
@@ -69,9 +63,7 @@ void Game::draw(Graphics& graphics) {
 
     _map->draw(graphics);
     _player->draw(graphics);
-
-    for(auto bullet : bullets)
-    {
+    for(auto& bullet : _bullets) {
         bullet.draw(graphics);
     }
 
@@ -80,6 +72,9 @@ void Game::draw(Graphics& graphics) {
 
 void Game::update(int elapsedTime) {
     _player->update(elapsedTime);
+    for(auto& bullet : _bullets) {
+        bullet.update(elapsedTime);
+    }
 }
 
 int Game::start() {

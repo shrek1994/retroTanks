@@ -3,43 +3,51 @@
 #include "Bullet.hpp"
 
 namespace Game {
+namespace {
+constexpr int BULLET_WIGHT_WHEN_IS_UP = 20;
+constexpr int BULLET_HEIGHT_WHEN_IS_UP = 34;
+}
 
 
 Bullet::Bullet(Graphics& graphics,
-               int posX, int posY,
+               int centerPosX, int centerPosY,
                Animation direction)
         : Object(graphics,
                  "res/bulletGreen.png",
                  0, 0,
-                 20, 34),
+                 BULLET_WIGHT_WHEN_IS_UP, BULLET_HEIGHT_WHEN_IS_UP),
           _direction(direction),
-          x(posX), y(posY)
+          _x(centerPosX), _y(centerPosY)
 {
     switch (direction)
     {
         case Animation::Up:
+            _dy = - 2 * SPEED;
             _sourceRect.x = 0;
             _sourceRect.y = 0;
-            _sourceRect.w = 20;
-            _sourceRect.h = 34;
+            _sourceRect.w = BULLET_WIGHT_WHEN_IS_UP;
+            _sourceRect.h = BULLET_HEIGHT_WHEN_IS_UP;
             break;
         case Animation::Right:
+            _dx = 2 * SPEED;
             _sourceRect.x = 0;
-            _sourceRect.y = 34;
-            _sourceRect.w = 34;
-            _sourceRect.h = 20;
+            _sourceRect.y = BULLET_HEIGHT_WHEN_IS_UP;
+            _sourceRect.w = BULLET_HEIGHT_WHEN_IS_UP;
+            _sourceRect.h = BULLET_WIGHT_WHEN_IS_UP;
             break;
         case Animation::Down:
+            _dy = 2 * SPEED;
             _sourceRect.x = 0;
-            _sourceRect.y = 54;
-            _sourceRect.w = 20;
-            _sourceRect.h = 34;
+            _sourceRect.y = BULLET_HEIGHT_WHEN_IS_UP + BULLET_WIGHT_WHEN_IS_UP;
+            _sourceRect.w = BULLET_WIGHT_WHEN_IS_UP;
+            _sourceRect.h = BULLET_HEIGHT_WHEN_IS_UP;
             break;
         case Animation::Left:
+            _dx = - 2 * SPEED;
             _sourceRect.x = 0;
-            _sourceRect.y = 88;
-            _sourceRect.w = 34;
-            _sourceRect.h = 20;
+            _sourceRect.y = 2 * BULLET_HEIGHT_WHEN_IS_UP + BULLET_WIGHT_WHEN_IS_UP;
+            _sourceRect.w = BULLET_HEIGHT_WHEN_IS_UP;
+            _sourceRect.h = BULLET_WIGHT_WHEN_IS_UP;
             break;
         default:
             ERROR << "Wrong direction: " << _direction << "\n";
@@ -47,7 +55,7 @@ Bullet::Bullet(Graphics& graphics,
 }
 
 void Bullet::draw(Graphics& graphics) {
-    Object::draw(graphics, x, y);
+    Object::draw(graphics, _x, _y);
 }
 
 }

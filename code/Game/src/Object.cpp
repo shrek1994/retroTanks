@@ -26,12 +26,20 @@ Object::Object(Graphics& graphics,
 
 }
 
-void Object::draw(Graphics &graphics, int x, int y) {
-    SDL_Rect destinationRectangle = { x,
-                                      y,
-                                      static_cast<int>(_sourceRect.w * SCALE_WIGHT),
-                                      static_cast<int>(_sourceRect.h * SCALE_HEIGHT)};
+void Object::draw(Graphics &graphics, int centerX, int centerY) {
+    SDL_Rect destinationRectangle = { centerX - getWight() / 2,
+                                      centerY - getHeight() / 2,
+                                      getWight(),
+                                      getHeight() };
     graphics.render(_objectTexture, &_sourceRect, &destinationRectangle);
+}
+
+double Object::getWight() {
+    return _sourceRect.w * SCALE_WIGHT;
+}
+
+double Object::getHeight() {
+    return _sourceRect.h * SCALE_HEIGHT;
 }
 
 }

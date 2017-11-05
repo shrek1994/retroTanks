@@ -7,7 +7,7 @@ enum class Animation {
     Down = 1,
     Left = 2,
     Right = 3,
-    Idle = 4,
+//    Idle = 4,
     IdleUp = 5,
     IdleDown = 6,
     IdleLeft = 7,
@@ -25,8 +25,8 @@ inline std::ostream& operator << (std::ostream& out, Animation animation)
             return out << "Animation::Left";
         case Animation::Right:
             return out << "Animation::Right";
-        case Animation::Idle:
-            return out << "Animation::Idle";
+//        case Animation::Idle:
+//            return out << "Animation::Idle";
         case Animation::IdleUp:
             return out << "Animation::IdleUp";
         case Animation::IdleDown:
@@ -39,9 +39,3 @@ inline std::ostream& operator << (std::ostream& out, Animation animation)
             return out << "Animation::" << static_cast<int>(animation);
     }
 }
-
-//TODO przeniesc to do osobnych plikow
-//
-//struct SDL_Point {
-//    int x, y;
-//};

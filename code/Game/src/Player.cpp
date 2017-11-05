@@ -55,7 +55,9 @@ void Player::update(int elapsedTime) {
     _y += _dy * elapsedTime;
 
     _x < 0 ? _x = 0 : 0;
+    _x  > WINDOW_WIGHT - getWight() ? _x = WINDOW_WIGHT - getWight() : 0;
     _y < 0 ? _y = 0 : 0;
+    _y > WINDOW_HEIGHT - getHeight() ? _y = WINDOW_HEIGHT - getHeight() : 0;
 
     AnimatedObject::update(elapsedTime);
 }
@@ -99,6 +101,23 @@ void Player::stopMoving() {
     playAnimation(_direction);
 }
 
+Animation Player::getDirection() {
+    switch (_direction)
+    {
+        case Animation::Left:
+        case Animation::IdleLeft:
+            return Animation::Left;
+        case Animation::Right:
+        case Animation::IdleRight:
+            return Animation::Right;
+        case Animation::Up:
+        case Animation::IdleUp:
+            return Animation::Up;
+        case Animation::Down:
+        case Animation::IdleDown:
+            return Animation::Down;
+    }
+}
 
 
 }

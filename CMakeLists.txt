@@ -13,7 +13,8 @@ PKG_SEARCH_MODULE(SDL2IMAGE REQUIRED SDL2_image>=2.0.0)
 include_directories(${SDL2_INCLUDE_DIRS})
 
 include_directories(code code/Game/inc)
-set(SOURCE_FILES code/main.cpp
+set(SOURCE_FILES
+        code/main.cpp
         code/Game/src/Graphics.cpp
         code/Game/inc/Graphics.hpp
         code/Game/src/Input.cpp
@@ -32,8 +33,9 @@ set(SOURCE_FILES code/main.cpp
         code/Game/inc/Map.hpp
         code/Game/src/Bullet.cpp
         code/Game/inc/Bullet.hpp
-        code/Constants.
+        code/Constants.hpp
         )
+
 add_executable(retroTanks ${SOURCE_FILES})
 
 target_link_libraries(retroTanks ${SDL2_LIBRARIES} ${SDL2IMAGE_LIBRARIES})
