@@ -21,28 +21,7 @@ public:
     void stopMoving();
 
     Animation getDirection();
-
-    Bullet createBullet(Graphics& graphics) {
-        auto direction = getDirection();
-        auto posX = _x;
-        auto posY = _y;
-
-        if (direction == Animation::Left) {
-            posY += TANK_HEIGHT / 2 * SCALE_HEIGHT;
-        } else if (direction == Animation::Right) {
-            posX += TANK_WIGHT * SCALE_WIGHT;
-            posY += TANK_HEIGHT / 2 * SCALE_HEIGHT;
-        } else if (direction == Animation::Up) {
-            posX += TANK_WIGHT / 2 * SCALE_WIGHT;
-        } else if (direction == Animation::Down) {
-            posX += TANK_WIGHT / 2 * SCALE_WIGHT;
-            posY += TANK_HEIGHT * SCALE_HEIGHT;
-        }
-
-
-
-        return Bullet(graphics, posX, posY, direction);
-    }
+    Bullet createBullet(Graphics& graphics);
 
 private:
     Animation _direction;

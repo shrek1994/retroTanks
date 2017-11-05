@@ -4,6 +4,7 @@
 #include <debug.hpp>
 #include "Object.hpp"
 #include "Animation.hpp"
+#include "Smoke.hpp"
 
 namespace Game {
 
@@ -15,16 +16,14 @@ public:
            Animation direction);
 
     void draw(Graphics& graphics) override;
-    void update(int elapsedTime) override {
-        _x += _dx * elapsedTime;
-        _y += _dy * elapsedTime;
+    void update(int elapsedTime) override;
 
-        _x < 0 ? _x = 0 : 0;
-        _x > WINDOW_WIGHT ? _x = WINDOW_WIGHT : 0;
-        _y < 0 ? _y = 0 : 0;
-        _y > WINDOW_HEIGHT ? _y = WINDOW_HEIGHT : 0;
+    bool isCollision();
+    Smoke createSmoke(Graphics& graphics);
+
+    bool operator==(const Bullet& bullet) {
+        return this == &bullet;
     }
-
 private:
     Animation _direction;
     double _x, _y;

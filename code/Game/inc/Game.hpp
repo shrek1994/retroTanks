@@ -18,9 +18,11 @@ private:
     void draw(Graphics &graphics);
     void update(int elapsedTime);
 
+    std::unique_ptr<Graphics> _graphics;
     std::unique_ptr<Player> _player ;
     std::unique_ptr<Map> _map;
     std::list<Bullet> _bullets;
+    std::list<Smoke> _smokes;
 };
 
 }

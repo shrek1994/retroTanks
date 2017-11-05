@@ -34,7 +34,7 @@ set(SOURCE_FILES
         code/Game/src/Bullet.cpp
         code/Game/inc/Bullet.hpp
         code/Constants.hpp
-        )
+        code/Game/src/Smoke.cpp code/Game/inc/Smoke.hpp)
 
 add_executable(retroTanks ${SOURCE_FILES})
 

@@ -99,4 +99,8 @@ void AnimatedObject::draw(Graphics &graphics, int x, int y) {
     }
 }
 
+bool AnimatedObject::isVisible() {
+    return _visible;
+}
+
 }

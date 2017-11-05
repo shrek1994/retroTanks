@@ -58,4 +58,22 @@ void Bullet::draw(Graphics& graphics) {
     Object::draw(graphics, _x, _y);
 }
 
+void Bullet::update(int elapsedTime) {
+    _x += _dx * elapsedTime;
+    _y += _dy * elapsedTime;
+
+    _x < 0 ? _x = 0 : 0;
+    _x > WINDOW_WIGHT ? _x = WINDOW_WIGHT : 0;
+    _y < 0 ? _y = 0 : 0;
+    _y > WINDOW_HEIGHT ? _y = WINDOW_HEIGHT : 0;
+}
+
+Smoke Bullet::createSmoke(Graphics& graphics) {
+    return Smoke(graphics, _x, _y);
+}
+
+bool Bullet::isCollision() {
+    return _x == 0 || _x == WINDOW_WIGHT || _y == 0 || _y == WINDOW_HEIGHT;
+}
+
 }
