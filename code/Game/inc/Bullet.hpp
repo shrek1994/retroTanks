@@ -1,12 +1,10 @@
 #pragma once
 
-#include <Constants.hpp>
-#include <debug.hpp>
 #include "Object.hpp"
 #include "Animation.hpp"
-#include "Smoke.hpp"
 
 namespace Game {
+class Smoke;
 
 
 class Bullet : public Object {

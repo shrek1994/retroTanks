@@ -1,6 +1,6 @@
 #pragma once
 
-#include "AI/inc/ITankController.hpp"
+#include "ITankController.hpp"
 
 namespace Game {
 class Input;

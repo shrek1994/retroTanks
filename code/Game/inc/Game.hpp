@@ -1,11 +1,13 @@
 #pragma once
 
+#include <memory>
+#include <list>
+
 #include "Graphics.hpp"
 #include "Tank.hpp"
 #include "Map.hpp"
 #include "Bullet.hpp"
-#include <memory>
-#include <list>
+#include "Smoke.hpp"
 
 namespace Game {
 

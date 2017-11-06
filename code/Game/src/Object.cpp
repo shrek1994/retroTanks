@@ -1,7 +1,7 @@
-#include <iostream>
-#include <Constants.hpp>
 #include "debug.hpp"
+#include "Constants.hpp"
 #include "Object.hpp"
+#include "Graphics.hpp"
 
 namespace Game {
 

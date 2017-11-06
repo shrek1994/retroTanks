@@ -1,6 +1,9 @@
-#include <debug.hpp>
-#include <Constants.hpp>
+#include "debug.hpp"
+#include "Constants.hpp"
 #include "Tank.hpp"
+#include "ITankController.hpp"
+#include "Graphics.hpp"
+#include "Bullet.hpp"
 
 namespace Game {
 
@@ -52,7 +55,7 @@ void Tank::setupAnimations() {
 
 void Tank::update(int elapsedTime) {
     _tankController.move(*this);
-    
+
     _x += _dx * elapsedTime;
     _y += _dy * elapsedTime;
 

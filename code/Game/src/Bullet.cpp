@@ -1,6 +1,8 @@
-#include <Animation.hpp>
-#include <debug.hpp>
+#include "debug.hpp"
 #include "Bullet.hpp"
+#include "Constants.hpp"
+#include "Graphics.hpp"
+#include "Smoke.hpp"
 
 namespace Game {
 namespace {

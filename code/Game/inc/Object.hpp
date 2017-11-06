@@ -1,9 +1,10 @@
 #pragma once
 
+#include <SDL2/SDL.h>
 #include <string>
-#include "Graphics.hpp"
 
 namespace Game {
+class Graphics;
 
 class Object {
 public:

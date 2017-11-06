@@ -1,5 +1,6 @@
 #pragma once
 
+#include <map>
 #include <vector>
 #include "Object.hpp"
 #include "Animation.hpp"

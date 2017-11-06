@@ -1,6 +1,6 @@
-#include <debug.hpp>
-#include <Constants.hpp>
+#include "debug.hpp"
 #include "AnimatedObject.hpp"
+#include "Graphics.hpp"
 
 namespace Game {
 
@@ -82,10 +82,10 @@ void AnimatedObject::update(int elapsedTime) {
 
 void AnimatedObject::draw(Graphics &graphics, int centerX, int centerY) {
     if (_visible) {
-        SDL_Rect destinationRectangle = { centerX - getWight() / 2,
-                                          centerY - getHeight() / 2,
-                                          getWight(),
-                                          getHeight() };
+        SDL_Rect destinationRectangle = {static_cast<int>(centerX - getWight() / 2),
+                                         static_cast<int>(centerY - getHeight() / 2),
+                                         static_cast<int>(getWight()),
+                                         static_cast<int>(getHeight())};
 
         if (static_cast<int>(_currentAnimation) > 8 || _frameIndex < 0)
         {

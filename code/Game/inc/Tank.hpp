@@ -1,11 +1,14 @@
 #pragma once
 
-#include <AnimatedObject.hpp>
+#include "AnimatedObject.hpp"
 #include <memory>
-#include "Bullet.hpp"
-#include "ITankController.hpp"
+
+namespace AI {
+class ITankController;
+}
 
 namespace Game {
+class Bullet;
 
 class Tank : public AnimatedObject {
 public:
