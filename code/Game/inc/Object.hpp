@@ -18,6 +18,7 @@ public:
     virtual void draw(Graphics& graphics) = 0;
     virtual void update(int elapsedTime) = 0;
     virtual bool shouldBeRemove() = 0;
+    virtual SDL_Rect getRectangle() = 0;
     virtual ~Object() = default;
 
     double getWight();

@@ -11,9 +11,10 @@ public:
     void setupAnimations() override;
     void draw(Graphics& graphics) override;
     bool shouldBeRemove() override;
+    SDL_Rect getRectangle() override;
 
 private:
-    int _x, _y;
+    int _centerX, _centerY;
 };
 
 }

@@ -45,7 +45,7 @@ set(SOURCE_FILES
         code/AI/inc/Player.hpp
         code/AI/inc/ITankController.hpp
         code/Game/inc/ObjectNotifier.hpp
-        )
+        code/Game/src/Sandbag.cpp code/Game/inc/Sandbag.hpp)
 
 add_executable(retroTanks ${SOURCE_FILES})
 

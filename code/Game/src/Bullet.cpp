@@ -21,7 +21,7 @@ Bullet::Bullet(Graphics& graphics,
                  0, 0,
                  BULLET_WIGHT_WHEN_IS_UP, BULLET_HEIGHT_WHEN_IS_UP),
           _direction(direction),
-          _x(centerPosX), _y(centerPosY),
+          _centerX(centerPosX), _centerY(centerPosY),
           _graphics(graphics),
           _newObjectNotifier(newObjectNotifier)
 {
@@ -62,25 +62,25 @@ Bullet::Bullet(Graphics& graphics,
 }
 
 void Bullet::draw(Graphics& graphics) {
-    Object::draw(graphics, _x, _y);
+    Object::draw(graphics, _centerX, _centerY);
 }
 
 void Bullet::update(int elapsedTime) {
-    _x += _dx * elapsedTime;
-    _y += _dy * elapsedTime;
+    _centerX += _dx * elapsedTime;
+    _centerY += _dy * elapsedTime;
 
-    _x < 0 ? _x = 0 : 0;
-    _x > WINDOW_WIGHT ? _x = WINDOW_WIGHT : 0;
-    _y < 0 ? _y = 0 : 0;
-    _y > WINDOW_HEIGHT ? _y = WINDOW_HEIGHT : 0;
+    _centerX < 0 ? _centerX = 0 : 0;
+    _centerX > WINDOW_WIGHT ? _centerX = WINDOW_WIGHT : 0;
+    _centerY < 0 ? _centerY = 0 : 0;
+    _centerY > WINDOW_HEIGHT ? _centerY = WINDOW_HEIGHT : 0;
 }
 
 std::unique_ptr<Smoke> Bullet::createSmoke(Graphics& graphics) {
-    return std::make_unique<Smoke>(graphics, _x, _y);
+    return std::make_unique<Smoke>(graphics, _centerX, _centerY);
 }
 
 bool Bullet::isCollision() {
-    return _x == 0 || _x == WINDOW_WIGHT || _y == 0 || _y == WINDOW_HEIGHT;
+    return _centerX == 0 || _centerX == WINDOW_WIGHT || _centerY == 0 || _centerY == WINDOW_HEIGHT;
 }
 
 bool Bullet::shouldBeRemove() {
@@ -89,6 +89,13 @@ bool Bullet::shouldBeRemove() {
 
 Bullet::~Bullet() {
     _newObjectNotifier.addObject(std::move(createSmoke(_graphics)));
+}
+
+SDL_Rect Bullet::getRectangle() {
+    return SDL_Rect{static_cast<int>(_centerX - getWight() / 2),
+                    static_cast<int>(_centerY - getHeight() / 2),
+                    static_cast<int>(getWight()),
+                    static_cast<int>(getHeight())};
 }
 
 }

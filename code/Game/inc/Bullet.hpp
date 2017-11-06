@@ -18,13 +18,14 @@ public:
     void draw(Graphics& graphics) override;
     void update(int elapsedTime) override;
     bool shouldBeRemove() override;
+    SDL_Rect getRectangle() override;
 
     bool isCollision();
     std::unique_ptr<Smoke> createSmoke(Graphics& graphics);
     ~Bullet() override;
 private:
     Animation _direction;
-    double _x, _y;
+    double _centerX, _centerY;
     double _dx = 0, _dy = 0;
 
     Graphics& _graphics;

@@ -39,7 +39,7 @@ Tank::Tank(AI::ITankController& tankController,
                        TANK_HEIGHT,
                        TANK_WIGHT,
                        125),
-        _x(posX), _y(posY),
+        _centerX(posX), _centerY(posY),
         _direction(Animation::IdleUp),
         _tankController(tankController),
         _newObjectNotifier(newObjectNotifier)
@@ -62,19 +62,19 @@ void Tank::setupAnimations() {
 void Tank::update(int elapsedTime) {
     _tankController.conditionallyMove(*this);
 
-    _x += _dx * elapsedTime;
-    _y += _dy * elapsedTime;
+    _centerX += _dx * elapsedTime;
+    _centerY += _dy * elapsedTime;
 
-    _x < getWight() / 2 ? _x = getWight() / 2 : 0;
-    _x  > WINDOW_WIGHT - getWight() / 2 ? _x = WINDOW_WIGHT - getWight() / 2 : 0;
-    _y < getHeight() / 2 ? _y = getHeight() / 2 : 0;
-    _y > WINDOW_HEIGHT - getHeight() / 2 ? _y = WINDOW_HEIGHT - getHeight() / 2 : 0;
+    _centerX < getWight() / 2 ? _centerX = getWight() / 2 : 0;
+    _centerX  > WINDOW_WIGHT - getWight() / 2 ? _centerX = WINDOW_WIGHT - getWight() / 2 : 0;
+    _centerY < getHeight() / 2 ? _centerY = getHeight() / 2 : 0;
+    _centerY > WINDOW_HEIGHT - getHeight() / 2 ? _centerY = WINDOW_HEIGHT - getHeight() / 2 : 0;
 
     AnimatedObject::update(elapsedTime);
 }
 
 void Tank::draw(Graphics& graphics) {
-    AnimatedObject::draw(graphics, _x, _y);
+    AnimatedObject::draw(graphics, _centerX, _centerY);
     _tankController.conditionallyShoot(*this, graphics);
 }
 
@@ -134,8 +134,8 @@ Animation Tank::getDirection() {
 
 std::unique_ptr<Bullet> Tank::createBullet(Graphics& graphics) {
     auto direction = getDirection();
-    auto posX = _x;
-    auto posY = _y;
+    auto posX = _centerX;
+    auto posY = _centerY;
 
     if (direction == Animation::Left) {
         posX -= TANK_WIGHT / 2 * SCALE_HEIGHT;
@@ -159,6 +159,43 @@ void Tank::shoot(Graphics& graphics) {
 
 bool Tank::shouldBeRemove() {
     return false;
+}
+
+void Tank::update(int elapsedTime, std::list<std::unique_ptr<Object>>& objects) {
+    _tankController.conditionallyMove(*this);
+
+    auto dx = _dx * elapsedTime;
+    auto dy = _dy * elapsedTime;
+
+    _centerX += dx;
+    _centerY += dy;
+
+    for (auto& obj : objects) {
+        SDL_Rect objRect = obj->getRectangle();
+        SDL_Rect tankRect = getRectangle();
+        if (SDL_HasIntersection(&objRect, &tankRect)) {
+            _centerX -= dx;
+            _centerY -= dy;
+            AnimatedObject::update(elapsedTime);
+            return;
+        }
+    }
+
+    _centerX < getWight() / 2 ? _centerX = getWight() / 2 : 0;
+    _centerX > WINDOW_WIGHT - getWight() / 2 ? _centerX = WINDOW_WIGHT - getWight() / 2 : 0;
+    _centerY < getHeight() / 2 ? _centerY = getHeight() / 2 : 0;
+    _centerY > WINDOW_HEIGHT - getHeight() / 2 ? _centerY = WINDOW_HEIGHT - getHeight() / 2 : 0;
+
+
+    AnimatedObject::update(elapsedTime);
+
+}
+
+SDL_Rect Tank::getRectangle() {
+    return SDL_Rect{static_cast<int>(_centerX - getWight() / 2),
+                    static_cast<int>(_centerY - getHeight() / 2),
+                    static_cast<int>(getWight()),
+                    static_cast<int>(getHeight())};
 }
 
 
