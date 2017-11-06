@@ -17,24 +17,23 @@ Map::Map(std::string mapName, SDL_Point spawnPoint, Graphics& graphics) :
 void Map::loadMap(std::string mapName, Graphics& graphics) {
     _background = SDL_CreateTextureFromSurface(
             graphics.getRenderer(),
-            graphics.loadImage("res/topDownTanks/Environment/sand.png"));
+            graphics.loadImage("res/dirt.png"));
     if (_background == nullptr) {
         ERROR << "Error: Unable to load map: " << mapName << "\n";
         SDL_Quit();
         std::exit(EXIT_FAILURE);
     }
-    DEBUG << "Loading map - DONE!\n";
 }
 
 void Map::draw(Graphics& graphics) {
     SDL_Rect source = {0, 0, 128, 128};
     SDL_Rect destination;
-    for (int x = 0 ; x < _size.x; ++x) {
-        for (int y = 0 ; y < _size.y; ++y) {
-            destination.x = x * 128;
-            destination.y = y * 128;
-            destination.w = 128;
-            destination.h = 128;
+    for (int x = 0 ; x * AREA_WIGHT < _size.x; ++x) {
+        for (int y = 0 ; y  * AREA_HEIGHT< _size.y; ++y) {
+            destination.x = x * AREA_WIGHT;
+            destination.y = y * AREA_HEIGHT;
+            destination.w = AREA_WIGHT;
+            destination.h = AREA_HEIGHT;
             graphics.render(_background, &source, &destination);
         }
     }
