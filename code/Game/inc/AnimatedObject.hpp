@@ -23,10 +23,6 @@ public:
     bool isVisible();
 
 protected:
-    double _timeToUpdate;
-    bool _currentAnimationOnce;
-    Animation _currentAnimation;
-
     void addAnimation(int frames,
                       int x, int y,
                       Animation animation,
@@ -36,13 +32,16 @@ protected:
     void resetAnimations();
     void stopAnimation();
     void setVisible(bool visible);
-    virtual void animationDone(Animation currentAnimation) {};
+    virtual void animationDone(Animation) {};
 
+    double _timeToUpdate;
+    bool _currentAnimationOnce;
+    Animation _currentAnimation;
 private:
     std::map<Animation, std::vector<SDL_Rect> > _animations;
     std::map<Animation, SDL_Point> _offsets;
 
-    int _frameIndex;
+    std::size_t _frameIndex;
     double _timeElapsed = 0;
     bool _visible;
 };

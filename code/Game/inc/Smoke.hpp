@@ -10,11 +10,8 @@ public:
 
     void setupAnimations() override;
     void draw(Graphics& graphics) override;
+    bool shouldBeRemove() override;
 
-
-    bool operator==(const Smoke& smoke) {
-        return this == &smoke;
-    }
 private:
     int _x, _y;
 };

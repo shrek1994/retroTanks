@@ -21,5 +21,9 @@ void Smoke::draw(Graphics& graphics) {
     AnimatedObject::draw(graphics, _x, _y);
 }
 
+bool Smoke::shouldBeRemove() {
+    return ! this->isVisible();
+}
+
 
 }

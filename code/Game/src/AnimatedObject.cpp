@@ -86,14 +86,6 @@ void AnimatedObject::draw(Graphics &graphics, int centerX, int centerY) {
                                          static_cast<int>(centerY - getHeight() / 2),
                                          static_cast<int>(getWight()),
                                          static_cast<int>(getHeight())};
-
-        if (static_cast<int>(_currentAnimation) > 8 || _frameIndex < 0)
-        {
-            //TODO repair it !
-            ERROR << "SEGMENTATION FAULT REASON: _currentAnimation has invalid value: " << _currentAnimation << ", "
-                  << "or_frameIndex has invalid value: " << _frameIndex << "\n";
-        }
-
         SDL_Rect sourceRect = _animations[_currentAnimation][_frameIndex];
         graphics.render(_objectTexture, &sourceRect, &destinationRectangle);
     }

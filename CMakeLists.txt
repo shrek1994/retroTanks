@@ -2,14 +2,14 @@ cmake_minimum_required(VERSION 3.7)
 project(retroTanks)
 
 set(CMAKE_CXX_STANDARD 14)
-
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -pedantic -Wextra -Werror")
 
 find_package(SDL2 REQUIRED)
 include_directories(${SDL2_INCLUDE_DIRS} ${SDL2_IMAGE_INCLUDE_DIRS})
 
 
 INCLUDE(FindPkgConfig)
-PKG_SEARCH_MODULE(SDL2IMAGE REQUIRED SDL2_image>=2.0.0)
+PKG_SEARCH_MODULE(SDL2IMAGE REQUIRED SDL2_image >= 2.0.0)
 include_directories(${SDL2_INCLUDE_DIRS})
 
 include_directories(
@@ -44,7 +44,8 @@ set(SOURCE_FILES
         code/AI/src/Player.cpp
         code/AI/inc/Player.hpp
         code/AI/inc/ITankController.hpp
-)
+        code/Game/inc/ObjectNotifier.hpp
+        )
 
 add_executable(retroTanks ${SOURCE_FILES})
 

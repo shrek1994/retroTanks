@@ -17,13 +17,15 @@ public:
 
     virtual void draw(Graphics& graphics) = 0;
     virtual void update(int elapsedTime) = 0;
+    virtual bool shouldBeRemove() = 0;
     virtual ~Object() = default;
 
     double getWight();
     double getHeight();
 
+    bool operator==(const Object& obj);
 protected:
-    virtual void draw(Graphics& graphics, int centerX, int centerY);
+    virtual void draw(Graphics& graphics, double centerX, double centerY);
 
     SDL_Rect _sourceRect;
     SDL_Texture* _objectTexture;

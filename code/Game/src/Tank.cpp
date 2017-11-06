@@ -4,6 +4,8 @@
 #include "ITankController.hpp"
 #include "Graphics.hpp"
 #include "Bullet.hpp"
+#include "ObjectNotifier.hpp"
+#include "Smoke.hpp"
 
 namespace Game {
 
@@ -26,7 +28,10 @@ Animation getIdle(Animation animation) {
 
 }
 
-Tank::Tank(AI::ITankController& tankController, Graphics& graphics, int posX, int posY) :
+Tank::Tank(AI::ITankController& tankController,
+           ObjectNotifier& newObjectNotifier,
+           Graphics& graphics,
+           int posX, int posY) :
         AnimatedObject(graphics,
                        "res/playerTank.png",
                        0,
@@ -34,7 +39,10 @@ Tank::Tank(AI::ITankController& tankController, Graphics& graphics, int posX, in
                        TANK_HEIGHT,
                        TANK_WIGHT,
                        125),
-        _x(posX), _y(posY), _direction(Animation::IdleUp), _tankController(tankController)
+        _x(posX), _y(posY),
+        _direction(Animation::IdleUp),
+        _tankController(tankController),
+        _newObjectNotifier(newObjectNotifier)
 {
     setupAnimations();
 }
@@ -52,7 +60,7 @@ void Tank::setupAnimations() {
 }
 
 void Tank::update(int elapsedTime) {
-    _tankController.move(*this);
+    _tankController.conditionallyMove(*this);
 
     _x += _dx * elapsedTime;
     _y += _dy * elapsedTime;
@@ -67,6 +75,7 @@ void Tank::update(int elapsedTime) {
 
 void Tank::draw(Graphics& graphics) {
     AnimatedObject::draw(graphics, _x, _y);
+    _tankController.conditionallyShoot(*this, graphics);
 }
 
 void Tank::moveLeft() {
@@ -120,9 +129,10 @@ Animation Tank::getDirection() {
         case Animation::IdleDown:
             return Animation::Down;
     }
+    return _direction;
 }
 
-Bullet Tank::createBullet(Graphics& graphics) {
+std::unique_ptr<Bullet> Tank::createBullet(Graphics& graphics) {
     auto direction = getDirection();
     auto posX = _x;
     auto posY = _y;
@@ -139,7 +149,16 @@ Bullet Tank::createBullet(Graphics& graphics) {
 
 
 
-    return Bullet(graphics, posX, posY, direction);
+    return std::make_unique<Bullet>(graphics, _newObjectNotifier, posX, posY, direction);
+}
+
+void Tank::shoot(Graphics& graphics) {
+    auto bullet = createBullet(graphics);
+    _newObjectNotifier.addObject(std::move(bullet));
+}
+
+bool Tank::shouldBeRemove() {
+    return false;
 }
 
 

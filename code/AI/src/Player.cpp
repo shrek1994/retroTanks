@@ -6,7 +6,7 @@ namespace AI {
 
 Player::Player(Game::Input& input) : input(input) {}
 
-void Player::move(Game::Tank& tank) {
+void Player::conditionallyMove(Game::Tank& tank) {
     if (input.isKeyHeld(SDL_SCANCODE_LEFT) || input.isKeyHeld(SDL_SCANCODE_A)) {
         tank.moveLeft();
     } else if (input.isKeyHeld(SDL_SCANCODE_RIGHT) || input.isKeyHeld(SDL_SCANCODE_D)) {
@@ -17,6 +17,12 @@ void Player::move(Game::Tank& tank) {
         tank.moveDown();
     } else {
         tank.stopMoving();
+    }
+}
+
+void Player::conditionallyShoot(Game::Tank& tank, Game::Graphics& graphics) {
+    if (input.wasKeyPressed(SDL_SCANCODE_LCTRL)) {
+        tank.shoot(graphics);
     }
 }
 

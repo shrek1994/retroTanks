@@ -26,11 +26,11 @@ Object::Object(Graphics& graphics,
 
 }
 
-void Object::draw(Graphics &graphics, int centerX, int centerY) {
-    SDL_Rect destinationRectangle = { centerX - getWight() / 2,
-                                      centerY - getHeight() / 2,
-                                      getWight(),
-                                      getHeight() };
+void Object::draw(Graphics &graphics, double centerX, double centerY) {
+    SDL_Rect destinationRectangle = {static_cast<int>(centerX - getWight() / 2),
+                                     static_cast<int>(centerY - getHeight() / 2),
+                                     static_cast<int>(getWight()),
+                                     static_cast<int>(getHeight())};
     graphics.render(_objectTexture, &_sourceRect, &destinationRectangle);
 }
 
@@ -40,6 +40,10 @@ double Object::getWight() {
 
 double Object::getHeight() {
     return _sourceRect.h * SCALE_HEIGHT;
+}
+
+bool Object::operator==(const Object& obj) {
+    return this == &obj;
 }
 
 }

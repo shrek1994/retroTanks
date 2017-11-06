@@ -20,20 +20,12 @@ void Game::gameLoop() {
     auto input = std::make_unique<Input>();
     _map = std::make_unique<Map>("level 1", SDL_Point{42, 42}, *_graphics);
     AI::Player player(*input);
-    _player = std::make_unique<Tank>(player, *_graphics, 100, 100);
+    _player = std::make_unique<Tank>(player, *this, *_graphics, 100, 100);
 
     auto lastUpdateTime = SDL_GetTicks();
 
     do {
         input->beginNewFrame();
-
-        if (input->wasKeyPressed(SDL_SCANCODE_LCTRL)) {
-            auto bullet = _player->createBullet(*_graphics);
-            _bullets.push_back(bullet);
-            _smokes.push_back(bullet.createSmoke(*_graphics));
-        }
-
-
 
         auto currentTimeMs = SDL_GetTicks();
         auto elapsedTimeMs = currentTimeMs - lastUpdateTime;
@@ -56,11 +48,9 @@ void Game::draw(Graphics& graphics) {
 
     _map->draw(graphics);
     _player->draw(graphics);
-    for(auto& bullet : _bullets) {
-        bullet.draw(graphics);
-    }
-    for (auto& smoke : _smokes) {
-        smoke.draw(graphics);
+
+    for (auto& obj : _objects) {
+        obj->draw(graphics);
     }
 
     graphics.flip();
@@ -69,24 +59,20 @@ void Game::draw(Graphics& graphics) {
 void Game::update(int elapsedTime) {
     _player->update(elapsedTime);
 
-    for(auto& bullet : _bullets) {
-        bullet.update(elapsedTime);
-        if (bullet.isCollision()) {
-            _smokes.push_back(bullet.createSmoke(*_graphics));
-        }
+    for (auto& obj : _objects) {
+        obj->update(elapsedTime);
     }
-    _bullets.remove_if([](auto& bullet) { return bullet.isCollision(); });
-
-    for (auto& smoke : _smokes) {
-        smoke.update(elapsedTime);
-    }
-    _smokes.remove_if([](auto& smoke) { return ! smoke.isVisible(); });
+    _objects.remove_if([](auto& obj) { return obj->shouldBeRemove(); });
 
 }
 
 int Game::start() {
     gameLoop();
     return 0;
+}
+
+void Game::addObject(std::unique_ptr<Object> object) {
+    _objects.push_back(std::move(object));
 }
 
 }

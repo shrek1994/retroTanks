@@ -3,6 +3,7 @@
 #include "Constants.hpp"
 #include "Graphics.hpp"
 #include "Smoke.hpp"
+#include "ObjectNotifier.hpp"
 
 namespace Game {
 namespace {
@@ -12,6 +13,7 @@ constexpr int BULLET_HEIGHT_WHEN_IS_UP = 34;
 
 
 Bullet::Bullet(Graphics& graphics,
+               ObjectNotifier& newObjectNotifier,
                int centerPosX, int centerPosY,
                Animation direction)
         : Object(graphics,
@@ -19,7 +21,9 @@ Bullet::Bullet(Graphics& graphics,
                  0, 0,
                  BULLET_WIGHT_WHEN_IS_UP, BULLET_HEIGHT_WHEN_IS_UP),
           _direction(direction),
-          _x(centerPosX), _y(centerPosY)
+          _x(centerPosX), _y(centerPosY),
+          _graphics(graphics),
+          _newObjectNotifier(newObjectNotifier)
 {
     switch (direction)
     {
@@ -54,6 +58,7 @@ Bullet::Bullet(Graphics& graphics,
         default:
             ERROR << "Wrong direction: " << _direction << "\n";
     }
+    _newObjectNotifier.addObject(std::move(createSmoke(graphics)));
 }
 
 void Bullet::draw(Graphics& graphics) {
@@ -70,12 +75,20 @@ void Bullet::update(int elapsedTime) {
     _y > WINDOW_HEIGHT ? _y = WINDOW_HEIGHT : 0;
 }
 
-Smoke Bullet::createSmoke(Graphics& graphics) {
-    return Smoke(graphics, _x, _y);
+std::unique_ptr<Smoke> Bullet::createSmoke(Graphics& graphics) {
+    return std::make_unique<Smoke>(graphics, _x, _y);
 }
 
 bool Bullet::isCollision() {
     return _x == 0 || _x == WINDOW_WIGHT || _y == 0 || _y == WINDOW_HEIGHT;
+}
+
+bool Bullet::shouldBeRemove() {
+    return isCollision();
+}
+
+Bullet::~Bullet() {
+    _newObjectNotifier.addObject(std::move(createSmoke(_graphics)));
 }
 
 }

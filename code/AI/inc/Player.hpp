@@ -14,7 +14,8 @@ class Player : public ITankController{
 public:
     Player(Game::Input& input);
 
-    void move(Game::Tank& tank) override;
+    void conditionallyMove(Game::Tank& tank) override;
+    void conditionallyShoot(Game::Tank& tank, Game::Graphics& graphics) override;
 private:
     Game::Input& input;
 };
