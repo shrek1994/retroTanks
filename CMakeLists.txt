@@ -12,7 +12,12 @@ INCLUDE(FindPkgConfig)
 PKG_SEARCH_MODULE(SDL2IMAGE REQUIRED SDL2_image>=2.0.0)
 include_directories(${SDL2_INCLUDE_DIRS})
 
-include_directories(code code/Game/inc)
+include_directories(
+        code
+        code/Game/inc
+        code/AI/inc
+)
+
 set(SOURCE_FILES
         code/main.cpp
         code/Game/src/Graphics.cpp
@@ -21,8 +26,8 @@ set(SOURCE_FILES
         code/Game/inc/Input.hpp
         code/Game/src/Game.cpp
         code/Game/inc/Game.hpp
-        code/Game/src/Player.cpp
-        code/Game/inc/Player.hpp
+        code/Game/src/Tank.cpp
+        code/Game/inc/Tank.hpp
         code/Game/src/Object.cpp
         code/Game/inc/Object.hpp
         code/Game/src/AnimatedObject.cpp
@@ -34,7 +39,12 @@ set(SOURCE_FILES
         code/Game/src/Bullet.cpp
         code/Game/inc/Bullet.hpp
         code/Constants.hpp
-        code/Game/src/Smoke.cpp code/Game/inc/Smoke.hpp)
+        code/Game/src/Smoke.cpp
+        code/Game/inc/Smoke.hpp
+        code/AI/src/Player.cpp
+        code/AI/inc/Player.hpp
+        code/AI/inc/ITankController.hpp
+)
 
 add_executable(retroTanks ${SOURCE_FILES})
 

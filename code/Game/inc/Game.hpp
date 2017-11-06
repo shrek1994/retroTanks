@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Graphics.hpp"
-#include "Player.hpp"
+#include "Tank.hpp"
 #include "Map.hpp"
 #include "Bullet.hpp"
 #include <memory>
@@ -19,7 +19,7 @@ private:
     void update(int elapsedTime);
 
     std::unique_ptr<Graphics> _graphics;
-    std::unique_ptr<Player> _player ;
+    std::unique_ptr<Tank> _player ;
     std::unique_ptr<Map> _map;
     std::list<Bullet> _bullets;
     std::list<Smoke> _smokes;

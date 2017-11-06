@@ -1,6 +1,6 @@
 #include <debug.hpp>
 #include <Constants.hpp>
-#include "Player.hpp"
+#include "Tank.hpp"
 
 namespace Game {
 
@@ -23,7 +23,7 @@ Animation getIdle(Animation animation) {
 
 }
 
-Player::Player(Graphics& graphics, int posX, int posY) :
+Tank::Tank(AI::ITankController& tankController, Graphics& graphics, int posX, int posY) :
         AnimatedObject(graphics,
                        "res/playerTank.png",
                        0,
@@ -31,12 +31,12 @@ Player::Player(Graphics& graphics, int posX, int posY) :
                        TANK_HEIGHT,
                        TANK_WIGHT,
                        125),
-        _x(posX), _y(posY), _direction(Animation::IdleUp)
+        _x(posX), _y(posY), _direction(Animation::IdleUp), _tankController(tankController)
 {
     setupAnimations();
 }
 
-void Player::setupAnimations() {
+void Tank::setupAnimations() {
     addAnimation(1, 0, 0, Animation::IdleDown, TANK_WIGHT, TANK_HEIGHT, SDL_Point{0, TANK_HEIGHT});
     addAnimation(1, 0, TANK_HEIGHT, Animation::IdleLeft, TANK_WIGHT, TANK_HEIGHT, SDL_Point{0, TANK_HEIGHT});
     addAnimation(1, 0, 2*TANK_HEIGHT, Animation::IdleUp, TANK_WIGHT, TANK_HEIGHT, SDL_Point{0, TANK_HEIGHT});
@@ -50,7 +50,9 @@ void Player::setupAnimations() {
     DEBUG << "Loading player animation - DONE!\n";
 }
 
-void Player::update(int elapsedTime) {
+void Tank::update(int elapsedTime) {
+    _tankController.move(*this);
+    
     _x += _dx * elapsedTime;
     _y += _dy * elapsedTime;
 
@@ -62,46 +64,46 @@ void Player::update(int elapsedTime) {
     AnimatedObject::update(elapsedTime);
 }
 
-void Player::draw(Graphics& graphics) {
+void Tank::draw(Graphics& graphics) {
     AnimatedObject::draw(graphics, _x, _y);
 }
 
-void Player::moveLeft() {
+void Tank::moveLeft() {
     _dx = - SPEED;
     _dy = 0;
     _direction = Animation::Left;
     playAnimation(_direction);
 }
 
-void Player::moveRight() {
+void Tank::moveRight() {
     _dx = SPEED;
     _dy = 0;
     _direction = Animation::Right;
     playAnimation(_direction);
 }
 
-void Player::moveUp() {
+void Tank::moveUp() {
     _dx = 0;
     _dy = - SPEED;
     _direction = Animation::Up;
     playAnimation(_direction);
 }
 
-void Player::moveDown() {
+void Tank::moveDown() {
     _dx = 0;
     _dy = SPEED;
     _direction = Animation::Down;
     playAnimation(_direction);
 }
 
-void Player::stopMoving() {
+void Tank::stopMoving() {
     _dx = 0;
     _dy = 0;
     _direction = getIdle(_direction);
     playAnimation(_direction);
 }
 
-Animation Player::getDirection() {
+Animation Tank::getDirection() {
     switch (_direction)
     {
         case Animation::Left:
@@ -119,7 +121,7 @@ Animation Player::getDirection() {
     }
 }
 
-Bullet Player::createBullet(Graphics& graphics) {
+Bullet Tank::createBullet(Graphics& graphics) {
     auto direction = getDirection();
     auto posX = _x;
     auto posY = _y;

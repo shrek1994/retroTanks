@@ -3,12 +3,13 @@
 #include <AnimatedObject.hpp>
 #include <memory>
 #include "Bullet.hpp"
+#include "ITankController.hpp"
 
 namespace Game {
 
-class Player : public AnimatedObject {
+class Tank : public AnimatedObject {
 public:
-    Player(Graphics& graphics, int posX, int posY);
+    Tank(AI::ITankController& tankController, Graphics& graphics, int posX, int posY);
 
     void setupAnimations() override;
     void update(int elapsedTime) override;
@@ -27,6 +28,7 @@ private:
     Animation _direction;
     double _dx = 0, _dy = 0;
     double _x, _y;
+    AI::ITankController& _tankController;
 };
 
 

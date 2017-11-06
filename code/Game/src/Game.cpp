@@ -2,6 +2,7 @@
 #include <memory>
 #include <debug.hpp>
 #include <Bullet.hpp>
+#include <Player.hpp>
 
 #include "Game.hpp"
 #include "Input.hpp"
@@ -17,24 +18,13 @@ void Game::gameLoop() {
     _graphics = std::make_unique<Graphics>();
     auto input = std::make_unique<Input>();
     _map = std::make_unique<Map>("level 1", SDL_Point{42, 42}, *_graphics);
-    _player = std::make_unique<Player>(*_graphics, 100, 100);
+    AI::Player player(*input);
+    _player = std::make_unique<Tank>(player, *_graphics, 100, 100);
 
     auto lastUpdateTime = SDL_GetTicks();
 
     do {
         input->beginNewFrame();
-
-        if (input->isKeyHeld(SDL_SCANCODE_LEFT) || input->isKeyHeld(SDL_SCANCODE_A)) {
-            _player->moveLeft();
-        } else if (input->isKeyHeld(SDL_SCANCODE_RIGHT) || input->isKeyHeld(SDL_SCANCODE_D)) {
-            _player->moveRight();
-        } else if (input->isKeyHeld(SDL_SCANCODE_UP) || input->isKeyHeld(SDL_SCANCODE_W)) {
-            _player->moveUp();
-        } else if (input->isKeyHeld(SDL_SCANCODE_DOWN) || input->isKeyHeld(SDL_SCANCODE_S)) {
-            _player->moveDown();
-        } else {
-            _player->stopMoving();
-        }
 
         if (input->wasKeyPressed(SDL_SCANCODE_LCTRL)) {
             auto bullet = _player->createBullet(*_graphics);
@@ -84,12 +74,12 @@ void Game::update(int elapsedTime) {
             _smokes.push_back(bullet.createSmoke(*_graphics));
         }
     }
-    _bullets.remove_if([](auto& bullet) {return bullet.isCollision(); });
+    _bullets.remove_if([](auto& bullet) { return bullet.isCollision(); });
 
     for (auto& smoke : _smokes) {
         smoke.update(elapsedTime);
     }
-    _smokes.remove_if([](auto& smoke) {return ! smoke.isVisible(); });
+    _smokes.remove_if([](auto& smoke) { return ! smoke.isVisible(); });
 
 }
 

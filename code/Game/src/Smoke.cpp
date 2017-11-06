@@ -1,4 +1,4 @@
-#include <Player.hpp>
+#include <Tank.hpp>
 #include "Smoke.hpp"
 
 namespace Game {
