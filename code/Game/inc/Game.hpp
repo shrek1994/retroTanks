@@ -26,6 +26,7 @@ private:
     void update(int elapsedTime);
 
     void addObject(std::unique_ptr<Object> object) override;
+    void addBot(std::unique_ptr<Tank> bot);
 
     std::unique_ptr<Graphics> _graphics;
     std::unique_ptr<Input> _input;
@@ -33,6 +34,7 @@ private:
     std::unique_ptr<Map> _map;
 
     std::list<std::unique_ptr<Object>> _objects;
+    std::list<std::unique_ptr<Tank>> _bots;
 };
 
 }

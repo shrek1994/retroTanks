@@ -1,8 +1,8 @@
-cmake_minimum_required(VERSION 3.7)
+cmake_minimum_required(VERSION 3.5)
 project(retroTanks)
 
 set(CMAKE_CXX_STANDARD 14)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -pedantic -Wextra -Werror")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -pedantic -Wextra -Werror -pthread")
 
 find_package(SDL2 REQUIRED)
 include_directories(${SDL2_INCLUDE_DIRS} ${SDL2_IMAGE_INCLUDE_DIRS})
@@ -43,6 +43,8 @@ set(SOURCE_FILES
         code/Game/inc/Smoke.hpp
         code/AI/src/Player.cpp
         code/AI/inc/Player.hpp
+        code/AI/src/Bot.cpp
+        code/AI/inc/Bot.hpp
         code/AI/inc/ITankController.hpp
         code/Game/inc/ObjectNotifier.hpp
         code/Game/src/Sandbag.cpp code/Game/inc/Sandbag.hpp)

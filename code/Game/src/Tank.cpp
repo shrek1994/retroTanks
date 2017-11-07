@@ -198,5 +198,8 @@ SDL_Rect Tank::getRectangle() {
                     static_cast<int>(getHeight())};
 }
 
+double Tank::getXPosition() const { return _centerX; }
+
+double Tank::getYPosition() const { return _centerY; }
 
 }

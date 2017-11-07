@@ -1,12 +1,10 @@
 #include <SDL2/SDL.h>
-#include <memory>
 
 #include "debug.hpp"
 #include "Constants.hpp"
-#include "Bullet.hpp"
 #include "Player.hpp"
 #include "Game.hpp"
-#include "Input.hpp"
+#include "Bot.hpp"
 
 namespace Game {
 
@@ -26,6 +24,8 @@ void Game::gameLoop() {
     init();
     AI::Player player(*_input);
     _player = std::make_unique<Tank>(player, *this, *_graphics, 100, 100);
+    AI::Bot botTank(*_player);
+    addBot(std::make_unique<Tank>(botTank, *this, *_graphics, 300, 300));
 
     auto lastUpdateTime = SDL_GetTicks();
 
@@ -55,6 +55,11 @@ void Game::draw(Graphics& graphics) {
     _map->draw(graphics);
     _player->draw(graphics);
 
+    for (const auto& bot : _bots) {
+        bot->draw(graphics);
+    }
+
+
     for (auto& obj : _objects) {
         obj->draw(graphics);
     }
@@ -64,6 +69,10 @@ void Game::draw(Graphics& graphics) {
 
 void Game::update(int elapsedTime) {
     _player->update(elapsedTime, _objects);
+
+    for (const auto& bot : _bots) {
+        bot->update(elapsedTime);
+    }
 
     for (auto& obj : _objects) {
         obj->update(elapsedTime);
@@ -79,6 +88,10 @@ int Game::start() {
 
 void Game::addObject(std::unique_ptr<Object> object) {
     _objects.push_back(std::move(object));
+}
+
+void Game::addBot(std::unique_ptr<Tank> bot) {
+    _bots.push_back(std::move(bot));
 }
 
 }

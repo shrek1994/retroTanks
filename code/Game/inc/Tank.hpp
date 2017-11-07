@@ -28,6 +28,9 @@ public:
     void moveDown();
     void stopMoving();
 
+    double getXPosition() const;
+    double getYPosition() const;
+
     void shoot(Graphics& graphics);
 
     Animation getDirection();
