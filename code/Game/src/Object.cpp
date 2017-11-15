@@ -12,14 +12,14 @@ Object::Object(Graphics& graphics,
                int width,
                int height)
 {
-    _sourceRect.x = sourceX;
-    _sourceRect.y = sourceY;
-    _sourceRect.w = width;
-    _sourceRect.h = height;
+    sourceRect.x = sourceX;
+    sourceRect.y = sourceY;
+    sourceRect.w = width;
+    sourceRect.h = height;
 
-    _objectTexture = SDL_CreateTextureFromSurface(graphics.getRenderer(),
+    objectTexture = SDL_CreateTextureFromSurface(graphics.getRenderer(),
                                                 graphics.loadImage(filePath));
-    if (_objectTexture == nullptr) {
+    if (objectTexture == nullptr) {
         ERROR << "Error: Unable to load image: " << filePath << "\n";
         std::exit(EXIT_FAILURE);
     }
@@ -31,19 +31,23 @@ void Object::draw(Graphics &graphics, double centerX, double centerY) {
                                      static_cast<int>(centerY - getHeight() / 2),
                                      static_cast<int>(getWight()),
                                      static_cast<int>(getHeight())};
-    graphics.render(_objectTexture, &_sourceRect, &destinationRectangle);
+    graphics.render(objectTexture, &sourceRect, &destinationRectangle);
 }
 
 double Object::getWight() const {
-    return _sourceRect.w * SCALE_WIGHT;
+    return sourceRect.w * SCALE_WIGHT;
 }
 
 double Object::getHeight() const {
-    return _sourceRect.h * SCALE_HEIGHT;
+    return sourceRect.h * SCALE_HEIGHT;
 }
 
-bool operator==(const Object& lhs, const Object& rhs) {
+}
+
+bool operator==(const Game::Object& lhs, const Game::Object& rhs) {
     return &lhs == &rhs;
 }
 
+bool operator!=(const Game::Object& lhs, const Game::Object& rhs) {
+    return !(lhs == rhs);
 }

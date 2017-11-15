@@ -6,12 +6,12 @@
 
 namespace Game {
 class Smoke;
-class ObjectNotifier;
+class ObjectOwner;
 
 class Bullet : public Object {
 public:
     Bullet(Graphics& graphics,
-           ObjectNotifier& newObjectNotifier,
+           ObjectOwner& objectOwner,
            int centerPosX, int centerPosY,
            Animation direction);
 
@@ -20,16 +20,18 @@ public:
     bool shouldBeRemove() const override;
     SDL_Rect getRectangle() const override;
 
-    bool isCollision() const;
     std::unique_ptr<Smoke> createSmoke(Graphics& graphics);
     ~Bullet() override;
 private:
-    Animation _direction;
-    double _centerX, _centerY;
+    bool isCollisionWithWall() const;
+    bool checkCollisionWithTanks() const;
+
+    Animation direction;
+    double centerX, centerY;
     double _dx = 0, _dy = 0;
 
-    Graphics& _graphics;
-    ObjectNotifier& _newObjectNotifier;
+    Graphics& graphics;
+    ObjectOwner& objectOwner;
 };
 
 }

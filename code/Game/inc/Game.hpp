@@ -8,24 +8,25 @@
 #include "Map.hpp"
 #include "Bullet.hpp"
 #include "Smoke.hpp"
-#include "ObjectNotifier.hpp"
+#include "ObjectOwner.hpp"
 #include "Sandbag.hpp"
 #include "Input.hpp"
 
 namespace Game {
 
-class Game : public ObjectNotifier {
+class Game : public ObjectOwner {
 public:
     Game();
     int start();
 
+    void addObject(std::unique_ptr<Object>&& object) override;
+    const std::list<std::unique_ptr<Tank>>& getTanks() override;
 private:
     void init();
     void gameLoop();
     void draw(Graphics &graphics);
     void update(int elapsedTime);
 
-    void addObject(std::unique_ptr<Object>&& object) override;
     void addTank(std::unique_ptr<Tank>&& tank);
 
     std::unique_ptr<Graphics> graphics;

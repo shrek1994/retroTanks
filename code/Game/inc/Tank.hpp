@@ -8,12 +8,12 @@
 
 namespace Game {
 class Bullet;
-class ObjectNotifier;
+class ObjectOwner;
 
 class Tank : public AnimatedObject {
 public:
     Tank(std::unique_ptr<AI::ITankController>&& tankController,
-         ObjectNotifier& newObjectNotifier,
+         ObjectOwner& objectOwner,
          Graphics& graphics,
          int posX, int posY);
 
@@ -33,17 +33,20 @@ public:
     double getYPosition() const;
 
     void shoot(Graphics& graphics);
+    void setKilled();
 
     Animation getDirection();
     std::unique_ptr<Bullet> createBullet(Graphics& graphics);
 
-    void update(int elapsedTime, std::list<std::unique_ptr<Object>>& objects);
+    ~Tank() override;
 private:
+    bool isKilled = false;
     double _dx = 0, _dy = 0;
     double centerX, centerY;
     Animation direction;
     std::unique_ptr<AI::ITankController> tankController;
-    ObjectNotifier& newObjectNotifier;
+    ObjectOwner& objectOwner;
+    Graphics& graphics;
 };
 
 

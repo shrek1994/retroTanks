@@ -87,7 +87,7 @@ void AnimatedObject::draw(Graphics &graphics, int centerX, int centerY) {
                                          static_cast<int>(getWight()),
                                          static_cast<int>(getHeight())};
         SDL_Rect sourceRect = _animations[_currentAnimation][_frameIndex];
-        graphics.render(_objectTexture, &sourceRect, &destinationRectangle);
+        graphics.render(objectTexture, &sourceRect, &destinationRectangle);
     }
 }
 

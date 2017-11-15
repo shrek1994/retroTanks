@@ -26,9 +26,11 @@ public:
 protected:
     virtual void draw(Graphics& graphics, double centerX, double centerY);
 
-    SDL_Rect _sourceRect;
-    SDL_Texture* _objectTexture;
+    SDL_Rect sourceRect;
+    SDL_Texture* objectTexture;
 };
 
-bool operator==(const Object& lhs, const Object& rhs);
 }
+
+bool operator==(const Game::Object& lhs, const Game::Object& rhs);
+bool operator!=(const Game::Object& lhs, const Game::Object& rhs);

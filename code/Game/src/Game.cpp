@@ -16,7 +16,7 @@ void Game::init() {
     graphics = std::make_unique<Graphics>();
     input = std::make_unique<Input>();
     map = std::make_unique<Map>("level 1", SDL_Point{42, 42}, *graphics);
-    objects.push_back(std::make_unique<Sandbag>(*graphics, 200, 200));
+//    objects.push_back(std::make_unique<Sandbag>(*graphics, 200, 200));
 }
 
 
@@ -74,11 +74,12 @@ void Game::update(int elapsedTime) {
     for (const auto& tank : tanks) {
         tank->update(elapsedTime);
     }
+    tanks.remove_if([](const auto& tank) { return tank->shouldBeRemove(); });
 
-    for (auto& obj : objects) {
+    for (const auto& obj : objects) {
         obj->update(elapsedTime);
     }
-    objects.remove_if([](auto& obj) { return obj->shouldBeRemove(); });
+    objects.remove_if([](const auto& obj) { return obj->shouldBeRemove(); });
 
 }
 
@@ -93,6 +94,10 @@ void Game::addObject(std::unique_ptr<Object>&& object) {
 
 void Game::addTank(std::unique_ptr<Tank>&& tank) {
     tanks.push_back(std::move(tank));
+}
+
+const std::list<std::unique_ptr<Tank>>& Game::getTanks() {
+    return tanks;
 }
 
 }

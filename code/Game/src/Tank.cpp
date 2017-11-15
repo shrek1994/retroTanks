@@ -4,7 +4,7 @@
 #include "ITankController.hpp"
 #include "Graphics.hpp"
 #include "Bullet.hpp"
-#include "ObjectNotifier.hpp"
+#include "ObjectOwner.hpp"
 #include "Smoke.hpp"
 
 namespace Game {
@@ -29,7 +29,7 @@ Animation getIdle(Animation animation) {
 }
 
 Tank::Tank(std::unique_ptr<AI::ITankController>&& tankController,
-           ObjectNotifier& newObjectNotifier,
+           ObjectOwner& objectOwner,
            Graphics& graphics,
            int posX, int posY) :
         AnimatedObject(graphics,
@@ -42,7 +42,8 @@ Tank::Tank(std::unique_ptr<AI::ITankController>&& tankController,
         centerX(posX), centerY(posY),
         direction(Animation::IdleUp),
         tankController(std::move(tankController)),
-        newObjectNotifier(newObjectNotifier)
+        objectOwner(objectOwner),
+        graphics(graphics)
 {
     setupAnimations();
 }
@@ -57,20 +58,6 @@ void Tank::setupAnimations() {
     addAnimation(2, 0, TANK_HEIGHT, Animation::Left, TANK_WIGHT, TANK_HEIGHT, SDL_Point{0, TANK_HEIGHT});
     addAnimation(2, 0, 2*TANK_HEIGHT, Animation::Up, TANK_WIGHT, TANK_HEIGHT, SDL_Point{0, TANK_HEIGHT});
     addAnimation(2, 0, 3*TANK_HEIGHT, Animation::Right, TANK_WIGHT, TANK_HEIGHT, SDL_Point{0, TANK_HEIGHT});
-}
-
-void Tank::update(int elapsedTime) {
-    tankController->conditionallyMove(*this);
-
-    centerX += _dx * elapsedTime;
-    centerY += _dy * elapsedTime;
-
-    centerX < getWight() / 2 ? centerX = getWight() / 2 : 0;
-    centerX  > WINDOW_WIGHT - getWight() / 2 ? centerX = WINDOW_WIGHT - getWight() / 2 : 0;
-    centerY < getHeight() / 2 ? centerY = getHeight() / 2 : 0;
-    centerY > WINDOW_HEIGHT - getHeight() / 2 ? centerY = WINDOW_HEIGHT - getHeight() / 2 : 0;
-
-    AnimatedObject::update(elapsedTime);
 }
 
 void Tank::draw(Graphics& graphics) {
@@ -138,30 +125,30 @@ std::unique_ptr<Bullet> Tank::createBullet(Graphics& graphics) {
     auto posY = centerY;
 
     if (direction == Animation::Left) {
-        posX -= TANK_WIGHT / 2 * SCALE_HEIGHT;
+        posX -= (TANK_WIGHT + BULLET_WIGHT_WHEN_IS_LEFT) / 2 * SCALE_HEIGHT;
     } else if (direction == Animation::Right) {
-        posX += TANK_WIGHT / 2 * SCALE_HEIGHT;
+        posX += (TANK_WIGHT + BULLET_WIGHT_WHEN_IS_LEFT) / 2 * SCALE_HEIGHT;
     } else if (direction == Animation::Up) {
-        posY -= TANK_HEIGHT / 2 * SCALE_HEIGHT;
+        posY -= (TANK_HEIGHT + BULLET_HEIGHT_WHEN_IS_UP) / 2 * SCALE_HEIGHT;
     } else if (direction == Animation::Down) {
-        posY += TANK_HEIGHT / 2 * SCALE_HEIGHT;
+        posY += (TANK_HEIGHT + BULLET_HEIGHT_WHEN_IS_UP) / 2 * SCALE_HEIGHT;
     }
 
 
 
-    return std::make_unique<Bullet>(graphics, newObjectNotifier, posX, posY, direction);
+    return std::make_unique<Bullet>(graphics, objectOwner, posX, posY, direction);
 }
 
 void Tank::shoot(Graphics& graphics) {
     auto bullet = createBullet(graphics);
-    newObjectNotifier.addObject(std::move(bullet));
+    objectOwner.addObject(std::move(bullet));
 }
 
 bool Tank::shouldBeRemove() const {
-    return false;
+    return isKilled;
 }
 
-void Tank::update(int elapsedTime, std::list<std::unique_ptr<Object>>& objects) {
+void Tank::update(int elapsedTime) {
     tankController->conditionallyMove(*this);
 
     auto dx = _dx * elapsedTime;
@@ -170,10 +157,11 @@ void Tank::update(int elapsedTime, std::list<std::unique_ptr<Object>>& objects) 
     centerX += dx;
     centerY += dy;
 
-    for (auto& obj : objects) {
-        SDL_Rect objRect = obj->getRectangle();
-        SDL_Rect tankRect = getRectangle();
-        if (SDL_HasIntersection(&objRect, &tankRect)) {
+    SDL_Rect ownRect = getRectangle();
+    for (auto& tank : objectOwner.getTanks()) {
+        if (*this == *tank) continue;
+        SDL_Rect tankRect = tank->getRectangle();
+        if (SDL_HasIntersection(&tankRect, &ownRect)) {
             centerX -= dx;
             centerY -= dy;
             AnimatedObject::update(elapsedTime);
@@ -201,5 +189,13 @@ SDL_Rect Tank::getRectangle() const {
 double Tank::getXPosition() const { return centerX; }
 
 double Tank::getYPosition() const { return centerY; }
+
+void Tank::setKilled() {
+    isKilled = true;
+}
+
+Tank::~Tank() {
+    objectOwner.addObject(std::make_unique<Smoke>(graphics, centerX, centerY));
+}
 
 }

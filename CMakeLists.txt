@@ -46,8 +46,9 @@ set(SOURCE_FILES
         code/AI/src/Bot.cpp
         code/AI/inc/Bot.hpp
         code/AI/inc/ITankController.hpp
-        code/Game/inc/ObjectNotifier.hpp
-        code/Game/src/Sandbag.cpp code/Game/inc/Sandbag.hpp)
+        code/Game/inc/ObjectOwner.hpp
+        code/Game/src/Sandbag.cpp
+        code/Game/inc/Sandbag.hpp)
 
 add_executable(retroTanks ${SOURCE_FILES})
 
