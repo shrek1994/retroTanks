@@ -28,7 +28,7 @@ Animation getIdle(Animation animation) {
 
 }
 
-Tank::Tank(AI::ITankController& tankController,
+Tank::Tank(std::unique_ptr<AI::ITankController>&& tankController,
            ObjectNotifier& newObjectNotifier,
            Graphics& graphics,
            int posX, int posY) :
@@ -39,10 +39,10 @@ Tank::Tank(AI::ITankController& tankController,
                        TANK_HEIGHT,
                        TANK_WIGHT,
                        125),
-        _centerX(posX), _centerY(posY),
-        _direction(Animation::IdleUp),
-        _tankController(tankController),
-        _newObjectNotifier(newObjectNotifier)
+        centerX(posX), centerY(posY),
+        direction(Animation::IdleUp),
+        tankController(std::move(tankController)),
+        newObjectNotifier(newObjectNotifier)
 {
     setupAnimations();
 }
@@ -60,61 +60,61 @@ void Tank::setupAnimations() {
 }
 
 void Tank::update(int elapsedTime) {
-    _tankController.conditionallyMove(*this);
+    tankController->conditionallyMove(*this);
 
-    _centerX += _dx * elapsedTime;
-    _centerY += _dy * elapsedTime;
+    centerX += _dx * elapsedTime;
+    centerY += _dy * elapsedTime;
 
-    _centerX < getWight() / 2 ? _centerX = getWight() / 2 : 0;
-    _centerX  > WINDOW_WIGHT - getWight() / 2 ? _centerX = WINDOW_WIGHT - getWight() / 2 : 0;
-    _centerY < getHeight() / 2 ? _centerY = getHeight() / 2 : 0;
-    _centerY > WINDOW_HEIGHT - getHeight() / 2 ? _centerY = WINDOW_HEIGHT - getHeight() / 2 : 0;
+    centerX < getWight() / 2 ? centerX = getWight() / 2 : 0;
+    centerX  > WINDOW_WIGHT - getWight() / 2 ? centerX = WINDOW_WIGHT - getWight() / 2 : 0;
+    centerY < getHeight() / 2 ? centerY = getHeight() / 2 : 0;
+    centerY > WINDOW_HEIGHT - getHeight() / 2 ? centerY = WINDOW_HEIGHT - getHeight() / 2 : 0;
 
     AnimatedObject::update(elapsedTime);
 }
 
 void Tank::draw(Graphics& graphics) {
-    AnimatedObject::draw(graphics, _centerX, _centerY);
-    _tankController.conditionallyShoot(*this, graphics);
+    AnimatedObject::draw(graphics, centerX, centerY);
+    tankController->conditionallyShoot(*this, graphics);
 }
 
 void Tank::moveLeft() {
     _dx = - SPEED;
     _dy = 0;
-    _direction = Animation::Left;
-    playAnimation(_direction);
+    direction = Animation::Left;
+    playAnimation(direction);
 }
 
 void Tank::moveRight() {
     _dx = SPEED;
     _dy = 0;
-    _direction = Animation::Right;
-    playAnimation(_direction);
+    direction = Animation::Right;
+    playAnimation(direction);
 }
 
 void Tank::moveUp() {
     _dx = 0;
     _dy = - SPEED;
-    _direction = Animation::Up;
-    playAnimation(_direction);
+    direction = Animation::Up;
+    playAnimation(direction);
 }
 
 void Tank::moveDown() {
     _dx = 0;
     _dy = SPEED;
-    _direction = Animation::Down;
-    playAnimation(_direction);
+    direction = Animation::Down;
+    playAnimation(direction);
 }
 
 void Tank::stopMoving() {
     _dx = 0;
     _dy = 0;
-    _direction = getIdle(_direction);
-    playAnimation(_direction);
+    direction = getIdle(direction);
+    playAnimation(direction);
 }
 
 Animation Tank::getDirection() {
-    switch (_direction)
+    switch (direction)
     {
         case Animation::Left:
         case Animation::IdleLeft:
@@ -129,13 +129,13 @@ Animation Tank::getDirection() {
         case Animation::IdleDown:
             return Animation::Down;
     }
-    return _direction;
+    return direction;
 }
 
 std::unique_ptr<Bullet> Tank::createBullet(Graphics& graphics) {
     auto direction = getDirection();
-    auto posX = _centerX;
-    auto posY = _centerY;
+    auto posX = centerX;
+    auto posY = centerY;
 
     if (direction == Animation::Left) {
         posX -= TANK_WIGHT / 2 * SCALE_HEIGHT;
@@ -149,12 +149,12 @@ std::unique_ptr<Bullet> Tank::createBullet(Graphics& graphics) {
 
 
 
-    return std::make_unique<Bullet>(graphics, _newObjectNotifier, posX, posY, direction);
+    return std::make_unique<Bullet>(graphics, newObjectNotifier, posX, posY, direction);
 }
 
 void Tank::shoot(Graphics& graphics) {
     auto bullet = createBullet(graphics);
-    _newObjectNotifier.addObject(std::move(bullet));
+    newObjectNotifier.addObject(std::move(bullet));
 }
 
 bool Tank::shouldBeRemove() const {
@@ -162,29 +162,29 @@ bool Tank::shouldBeRemove() const {
 }
 
 void Tank::update(int elapsedTime, std::list<std::unique_ptr<Object>>& objects) {
-    _tankController.conditionallyMove(*this);
+    tankController->conditionallyMove(*this);
 
     auto dx = _dx * elapsedTime;
     auto dy = _dy * elapsedTime;
 
-    _centerX += dx;
-    _centerY += dy;
+    centerX += dx;
+    centerY += dy;
 
     for (auto& obj : objects) {
         SDL_Rect objRect = obj->getRectangle();
         SDL_Rect tankRect = getRectangle();
         if (SDL_HasIntersection(&objRect, &tankRect)) {
-            _centerX -= dx;
-            _centerY -= dy;
+            centerX -= dx;
+            centerY -= dy;
             AnimatedObject::update(elapsedTime);
             return;
         }
     }
 
-    _centerX < getWight() / 2 ? _centerX = getWight() / 2 : 0;
-    _centerX > WINDOW_WIGHT - getWight() / 2 ? _centerX = WINDOW_WIGHT - getWight() / 2 : 0;
-    _centerY < getHeight() / 2 ? _centerY = getHeight() / 2 : 0;
-    _centerY > WINDOW_HEIGHT - getHeight() / 2 ? _centerY = WINDOW_HEIGHT - getHeight() / 2 : 0;
+    centerX < getWight() / 2 ? centerX = getWight() / 2 : 0;
+    centerX > WINDOW_WIGHT - getWight() / 2 ? centerX = WINDOW_WIGHT - getWight() / 2 : 0;
+    centerY < getHeight() / 2 ? centerY = getHeight() / 2 : 0;
+    centerY > WINDOW_HEIGHT - getHeight() / 2 ? centerY = WINDOW_HEIGHT - getHeight() / 2 : 0;
 
 
     AnimatedObject::update(elapsedTime);
@@ -192,14 +192,14 @@ void Tank::update(int elapsedTime, std::list<std::unique_ptr<Object>>& objects) 
 }
 
 SDL_Rect Tank::getRectangle() const {
-    return SDL_Rect{static_cast<int>(_centerX - getWight() / 2),
-                    static_cast<int>(_centerY - getHeight() / 2),
+    return SDL_Rect{static_cast<int>(centerX - getWight() / 2),
+                    static_cast<int>(centerY - getHeight() / 2),
                     static_cast<int>(getWight()),
                     static_cast<int>(getHeight())};
 }
 
-double Tank::getXPosition() const { return _centerX; }
+double Tank::getXPosition() const { return centerX; }
 
-double Tank::getYPosition() const { return _centerY; }
+double Tank::getYPosition() const { return centerY; }
 
 }

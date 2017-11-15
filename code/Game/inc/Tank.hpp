@@ -1,12 +1,10 @@
 #pragma once
 
 #include "AnimatedObject.hpp"
+#include "ITankController.hpp"
 #include <memory>
 #include <list>
 
-namespace AI {
-class ITankController;
-}
 
 namespace Game {
 class Bullet;
@@ -14,7 +12,10 @@ class ObjectNotifier;
 
 class Tank : public AnimatedObject {
 public:
-    Tank(AI::ITankController& tankController, ObjectNotifier& newObjectNotifier, Graphics& graphics, int posX, int posY);
+    Tank(std::unique_ptr<AI::ITankController>&& tankController,
+         ObjectNotifier& newObjectNotifier,
+         Graphics& graphics,
+         int posX, int posY);
 
     void setupAnimations() override;
     void update(int elapsedTime) override;
@@ -39,10 +40,10 @@ public:
     void update(int elapsedTime, std::list<std::unique_ptr<Object>>& objects);
 private:
     double _dx = 0, _dy = 0;
-    double _centerX, _centerY;
-    Animation _direction;
-    AI::ITankController& _tankController;
-    ObjectNotifier& _newObjectNotifier;
+    double centerX, centerY;
+    Animation direction;
+    std::unique_ptr<AI::ITankController> tankController;
+    ObjectNotifier& newObjectNotifier;
 };
 
 

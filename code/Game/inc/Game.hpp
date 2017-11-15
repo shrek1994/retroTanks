@@ -25,16 +25,16 @@ private:
     void draw(Graphics &graphics);
     void update(int elapsedTime);
 
-    void addObject(std::unique_ptr<Object> object) override;
-    void addBot(std::unique_ptr<Tank> bot);
+    void addObject(std::unique_ptr<Object>&& object) override;
+    void addTank(std::unique_ptr<Tank>&& tank);
 
-    std::unique_ptr<Graphics> _graphics;
-    std::unique_ptr<Input> _input;
-    std::unique_ptr<Tank> _player;
-    std::unique_ptr<Map> _map;
+    std::unique_ptr<Graphics> graphics;
+    std::unique_ptr<Input> input;
+    std::unique_ptr<Map> map;
 
-    std::list<std::unique_ptr<Object>> _objects;
-    std::list<std::unique_ptr<Tank>> _bots;
+    std::list<std::unique_ptr<Object>> objects;
+    std::list<std::unique_ptr<Tank>> tanks;
+    void createTanks();
 };
 
 }
