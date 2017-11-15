@@ -17,10 +17,10 @@ public:
 
     void draw(Graphics& graphics) override;
     void update(int elapsedTime) override;
-    bool shouldBeRemove() override;
-    SDL_Rect getRectangle() override;
+    bool shouldBeRemove() const override;
+    SDL_Rect getRectangle() const override;
 
-    bool isCollision();
+    bool isCollision() const;
     std::unique_ptr<Smoke> createSmoke(Graphics& graphics);
     ~Bullet() override;
 private:

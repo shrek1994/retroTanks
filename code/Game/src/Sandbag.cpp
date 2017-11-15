@@ -15,11 +15,11 @@ void Sandbag::update(int ) {
 
 }
 
-bool Sandbag::shouldBeRemove() {
+bool Sandbag::shouldBeRemove() const {
     return false;
 }
 
-SDL_Rect Sandbag::getRectangle() {
+SDL_Rect Sandbag::getRectangle() const {
     return SDL_Rect{static_cast<int>(_centerX - getWight() / 2),
                     static_cast<int>(_centerY - getHeight() / 2),
                     static_cast<int>(getWight()),

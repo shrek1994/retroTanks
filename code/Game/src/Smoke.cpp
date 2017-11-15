@@ -21,11 +21,11 @@ void Smoke::draw(Graphics& graphics) {
     AnimatedObject::draw(graphics, _centerX, _centerY);
 }
 
-bool Smoke::shouldBeRemove() {
+bool Smoke::shouldBeRemove() const {
     return ! this->isVisible();
 }
 
-SDL_Rect Smoke::getRectangle() {
+SDL_Rect Smoke::getRectangle() const{
     return SDL_Rect{};
 }
 

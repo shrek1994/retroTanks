@@ -91,7 +91,7 @@ void AnimatedObject::draw(Graphics &graphics, int centerX, int centerY) {
     }
 }
 
-bool AnimatedObject::isVisible() {
+bool AnimatedObject::isVisible() const {
     return _visible;
 }
 

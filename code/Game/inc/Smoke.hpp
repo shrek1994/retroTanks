@@ -10,8 +10,8 @@ public:
 
     void setupAnimations() override;
     void draw(Graphics& graphics) override;
-    bool shouldBeRemove() override;
-    SDL_Rect getRectangle() override;
+    bool shouldBeRemove() const override;
+    SDL_Rect getRectangle() const override;
 
 private:
     int _centerX, _centerY;

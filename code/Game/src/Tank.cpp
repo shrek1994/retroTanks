@@ -157,7 +157,7 @@ void Tank::shoot(Graphics& graphics) {
     _newObjectNotifier.addObject(std::move(bullet));
 }
 
-bool Tank::shouldBeRemove() {
+bool Tank::shouldBeRemove() const {
     return false;
 }
 
@@ -191,7 +191,7 @@ void Tank::update(int elapsedTime, std::list<std::unique_ptr<Object>>& objects) 
 
 }
 
-SDL_Rect Tank::getRectangle() {
+SDL_Rect Tank::getRectangle() const {
     return SDL_Rect{static_cast<int>(_centerX - getWight() / 2),
                     static_cast<int>(_centerY - getHeight() / 2),
                     static_cast<int>(getWight()),

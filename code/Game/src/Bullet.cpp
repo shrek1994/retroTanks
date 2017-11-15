@@ -79,11 +79,11 @@ std::unique_ptr<Smoke> Bullet::createSmoke(Graphics& graphics) {
     return std::make_unique<Smoke>(graphics, _centerX, _centerY);
 }
 
-bool Bullet::isCollision() {
+bool Bullet::isCollision() const {
     return _centerX == 0 || _centerX == WINDOW_WIGHT || _centerY == 0 || _centerY == WINDOW_HEIGHT;
 }
 
-bool Bullet::shouldBeRemove() {
+bool Bullet::shouldBeRemove() const {
     return isCollision();
 }
 
@@ -91,7 +91,7 @@ Bullet::~Bullet() {
     _newObjectNotifier.addObject(std::move(createSmoke(_graphics)));
 }
 
-SDL_Rect Bullet::getRectangle() {
+SDL_Rect Bullet::getRectangle() const {
     return SDL_Rect{static_cast<int>(_centerX - getWight() / 2),
                     static_cast<int>(_centerY - getHeight() / 2),
                     static_cast<int>(getWight()),

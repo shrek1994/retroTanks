@@ -8,3 +8,5 @@ build
 *.includes
 res/battleCity
 res/remake
+libs
+

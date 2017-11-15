@@ -19,8 +19,8 @@ public:
     void setupAnimations() override;
     void update(int elapsedTime) override;
     void draw(Graphics& graphics) override;
-    bool shouldBeRemove() override;
-    SDL_Rect getRectangle() override;
+    bool shouldBeRemove() const override;
+    SDL_Rect getRectangle() const override;
 
     void moveLeft();
     void moveRight();

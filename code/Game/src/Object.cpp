@@ -34,16 +34,16 @@ void Object::draw(Graphics &graphics, double centerX, double centerY) {
     graphics.render(_objectTexture, &_sourceRect, &destinationRectangle);
 }
 
-double Object::getWight() {
+double Object::getWight() const {
     return _sourceRect.w * SCALE_WIGHT;
 }
 
-double Object::getHeight() {
+double Object::getHeight() const {
     return _sourceRect.h * SCALE_HEIGHT;
 }
 
-bool Object::operator==(const Object& obj) {
-    return this == &obj;
+bool operator==(const Object& lhs, const Object& rhs) {
+    return &lhs == &rhs;
 }
 
 }
