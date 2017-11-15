@@ -48,9 +48,13 @@ void Game::gameLoop() {
 void Game::createTanks() {
     auto player = std::make_unique<AI::Player>(*input);
     auto playerTank = std::make_unique<Tank>(std::move(player), *this, *graphics, 100, 100);
-    auto botTank = std::make_unique<AI::Bot>(*playerTank);
+    auto botTank1 = std::make_unique<AI::Bot>(*playerTank);
+    auto botTank2 = std::make_unique<AI::Bot>(*playerTank);
+    auto botTank3 = std::make_unique<AI::Bot>(*playerTank);
     addTank(std::move(playerTank));
-    addTank(std::make_unique<Tank>(std::move(botTank), *this, *graphics, 300, 300));
+    addTank(std::make_unique<Tank>(std::move(botTank1), *this, *graphics, 200, 200));
+    addTank(std::make_unique<Tank>(std::move(botTank2), *this, *graphics, 300, 300));
+    addTank(std::make_unique<Tank>(std::move(botTank3), *this, *graphics, 400, 400));
 }
 
 

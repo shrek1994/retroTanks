@@ -23,6 +23,7 @@ private:
     bool inline shouldShoot(double botPosition, double playerPosition) const noexcept;
 
     const Game::Tank& player;
+    unsigned movingNumber = 0;
 };
 
 }

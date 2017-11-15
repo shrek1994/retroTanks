@@ -28,6 +28,7 @@ public:
     void moveUp();
     void moveDown();
     void stopMoving();
+    bool isIdle();
 
     double getXPosition() const;
     double getYPosition() const;

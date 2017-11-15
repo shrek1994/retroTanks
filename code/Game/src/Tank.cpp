@@ -198,4 +198,9 @@ Tank::~Tank() {
     objectOwner.addObject(std::make_unique<Smoke>(graphics, centerX, centerY));
 }
 
+bool Tank::isIdle() {
+    return direction == Animation::IdleLeft || direction == Animation::IdleUp
+            || direction == Animation::IdleDown || direction == Animation::IdleRight;
+}
+
 }
