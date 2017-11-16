@@ -21,7 +21,8 @@ void Player::conditionallyMove(Game::Tank& tank) {
 }
 
 void Player::conditionallyShoot(Game::Tank& tank, Game::Graphics& graphics) {
-    if (input.wasKeyPressed(SDL_SCANCODE_LCTRL)) {
+    if (input.wasKeyPressed(SDL_SCANCODE_LCTRL)
+        || input.wasKeyPressed(SDL_SCANCODE_RCTRL)) {
         tank.shoot(graphics);
     }
 }
