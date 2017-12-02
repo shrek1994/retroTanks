@@ -11,6 +11,19 @@ namespace Game {
 
 namespace {
 
+template <typename Obj>
+bool isCollision(const std::list<std::unique_ptr<Obj>>& objects, Tank& tank) {
+    SDL_Rect ownRect = tank.getRectangle();
+    for (auto& object : objects) {
+        if (tank == *object) continue;
+        SDL_Rect tankRect = object->getRectangle();
+        if (SDL_HasIntersection(&tankRect, &ownRect)) {
+            return true;
+        }
+    }
+    return false;
+}
+
 Animation getIdle(Animation animation) {
     switch (animation) {
         case Animation::Left:
@@ -157,16 +170,11 @@ void Tank::update(int elapsedTime) {
     centerX += dx;
     centerY += dy;
 
-    SDL_Rect ownRect = getRectangle();
-    for (auto& tank : objectOwner.getTanks()) {
-        if (*this == *tank) continue;
-        SDL_Rect tankRect = tank->getRectangle();
-        if (SDL_HasIntersection(&tankRect, &ownRect)) {
-            centerX -= dx;
-            centerY -= dy;
-            AnimatedObject::update(elapsedTime);
-            return;
-        }
+    if (isCollision(objectOwner.getTanks(), *this) || isCollision(objectOwner.getObjects(), *this) ){
+        centerX -= dx;
+        centerY -= dy;
+        AnimatedObject::update(elapsedTime);
+        return;
     }
 
     centerX < getWight() / 2 ? centerX = getWight() / 2 : 0;

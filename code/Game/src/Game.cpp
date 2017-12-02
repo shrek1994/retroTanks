@@ -16,7 +16,7 @@ void Game::init() {
     graphics = std::make_unique<Graphics>();
     input = std::make_unique<Input>();
     map = std::make_unique<Map>("level 1", SDL_Point{42, 42}, *graphics);
-//    objects.push_back(std::make_unique<Sandbag>(*graphics, 200, 200));
+    objects.push_back(std::make_unique<Sandbag>(*graphics, 100, 400));
 }
 
 
@@ -102,6 +102,10 @@ void Game::addTank(std::unique_ptr<Tank>&& tank) {
 
 const std::list<std::unique_ptr<Tank>>& Game::getTanks() {
     return tanks;
+}
+
+const std::list<std::unique_ptr<Object>>& Game::getObjects() {
+    return objects;
 }
 
 }

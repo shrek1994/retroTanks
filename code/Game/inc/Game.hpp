@@ -21,6 +21,7 @@ public:
 
     void addObject(std::unique_ptr<Object>&& object) override;
     const std::list<std::unique_ptr<Tank>>& getTanks() override;
+    const std::list<std::unique_ptr<Object>>& getObjects() override;
 private:
     void init();
     void gameLoop();
