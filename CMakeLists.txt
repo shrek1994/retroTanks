@@ -56,7 +56,9 @@ set(SOURCE_FILES
         code/Game/src/Barrel.cpp
         code/Game/inc/Barrel.hpp
         code/Game/src/DamagedBarrel.cpp
-        code/Game/inc/DamagedBarrel.hpp)
+        code/Game/inc/DamagedBarrel.hpp
+        code/Game/src/Tree.cpp
+        code/Game/inc/Tree.hpp)
 
 add_executable(retroTanks ${SOURCE_FILES})
 

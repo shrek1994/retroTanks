@@ -12,6 +12,7 @@ Map::Map(std::string mapName, SDL_Point spawnPoint, Graphics& graphics) :
     _size(SDL_Point{WINDOW_WIGHT, WINDOW_HEIGHT})
 {
     loadMap(mapName, graphics);
+    trees.emplace_back(graphics, 300, 400);
 }
 
 void Map::loadMap(std::string mapName, Graphics& graphics) {
@@ -36,6 +37,12 @@ void Map::draw(Graphics& graphics) {
             destination.h = AREA_HEIGHT;
             graphics.render(_background, &source, &destination);
         }
+    }
+}
+
+void Map::drawTree(Graphics &graphics){
+    for (auto& tree : trees) {
+        tree.draw(graphics);
     }
 }
 

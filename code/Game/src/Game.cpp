@@ -76,6 +76,8 @@ void Game::draw(Graphics& graphics) {
         obj->draw(graphics);
     }
 
+    map->drawTree(graphics);
+
     graphics.flip();
 }
 
