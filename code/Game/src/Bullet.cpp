@@ -88,7 +88,7 @@ SDL_Rect Bullet::getRectangle() const {
 }
 
 bool Bullet::shouldBeRemove() const {
-    return isCollisionWithWall() || checkCollisionWithTanks();
+    return isCollisionWithWall() || checkCollisionWithTanks() || checkCollisionWithObjects();
 }
 
 bool Bullet::isCollisionWithWall() const {
@@ -101,6 +101,21 @@ bool Bullet::checkCollisionWithTanks() const {
         auto tankRect = tank->getRectangle();
         if (SDL_HasIntersection(&bulletRect, &tankRect)) {
             tank->setKilled();
+            return true;
+        }
+    }
+
+    return false;
+}
+
+
+bool Bullet::checkCollisionWithObjects() const {
+    auto bulletRect = getRectangle();
+    for (const auto& object : objectOwner.getObjects()) {
+        if (*this == *object) continue;
+        auto objectRect = object->getRectangle();
+        if (SDL_HasIntersection(&bulletRect, &objectRect)) {
+//            tank->setKilled();
             return true;
         }
     }

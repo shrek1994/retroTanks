@@ -204,6 +204,7 @@ void Tank::setKilled() {
 
 Tank::~Tank() {
     objectOwner.addObject(std::make_unique<Smoke>(graphics, centerX, centerY));
+    DEBUG << "Tank was destroied!\n";
 }
 
 bool Tank::isIdle() {

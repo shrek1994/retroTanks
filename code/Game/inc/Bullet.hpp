@@ -25,6 +25,7 @@ public:
 private:
     bool isCollisionWithWall() const;
     bool checkCollisionWithTanks() const;
+    bool checkCollisionWithObjects() const;
 
     Animation direction;
     double centerX, centerY;
