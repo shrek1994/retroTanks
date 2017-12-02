@@ -10,6 +10,21 @@
 namespace Game {
 
 namespace {
+const std::string BEIGE_TANK = "res/playerTankBeige.png";
+const std::string BLACK_TANK = "res/playerTankBlack.png";
+const std::string GREEN_TANK = "res/playerTankGreen.png";
+const std::string BLUE_TANK  = "res/playerTankBlue.png";
+const std::string RED_TANK   = "res/playerTankRed.png";
+const std::array<std::string, 5> colorsTank = {GREEN_TANK,
+                                               BEIGE_TANK,
+                                               BLACK_TANK,
+                                               RED_TANK,
+                                               BLUE_TANK};
+
+std::string getTankName() {
+    static char color = 0;
+    return colorsTank[color++ % colorsTank.size()];
+}
 
 template <typename Obj>
 bool isCollision(const std::list<std::unique_ptr<Obj>>& objects, Tank& tank) {
@@ -46,7 +61,7 @@ Tank::Tank(std::unique_ptr<AI::ITankController>&& tankController,
            Graphics& graphics,
            int posX, int posY) :
         AnimatedObject(graphics,
-                       "res/playerTank.png",
+                       getTankName(),
                        0,
                        0,
                        TANK_HEIGHT,

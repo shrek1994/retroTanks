@@ -17,12 +17,13 @@ void Game::init() {
     input = std::make_unique<Input>();
     map = std::make_unique<Map>("level 1", SDL_Point{42, 42}, *graphics);
     objects.push_back(std::make_unique<Sandbag>(*graphics, 100, 400));
+
+    createTanks();
 }
 
 
 void Game::gameLoop() {
     init();
-    createTanks();
 
     auto lastUpdateTime = SDL_GetTicks();
 
@@ -51,10 +52,12 @@ void Game::createTanks() {
     auto botTank1 = std::make_unique<AI::Bot>(*playerTank);
     auto botTank2 = std::make_unique<AI::Bot>(*playerTank);
     auto botTank3 = std::make_unique<AI::Bot>(*playerTank);
+    auto botTank4 = std::make_unique<AI::Bot>(*playerTank);
     addTank(std::move(playerTank));
     addTank(std::make_unique<Tank>(std::move(botTank1), *this, *graphics, 200, 200));
     addTank(std::make_unique<Tank>(std::move(botTank2), *this, *graphics, 300, 300));
     addTank(std::make_unique<Tank>(std::move(botTank3), *this, *graphics, 400, 400));
+    addTank(std::make_unique<Tank>(std::move(botTank4), *this, *graphics, 500, 500));
 }
 
 
