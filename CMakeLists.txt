@@ -54,7 +54,9 @@ set(SOURCE_FILES
         code/Game/src/IndestructibleObject.cpp
         code/Game/inc/IndestructibleObject.hpp
         code/Game/src/Barrel.cpp
-        code/Game/inc/Barrel.hpp)
+        code/Game/inc/Barrel.hpp
+        code/Game/src/DamagedBarrel.cpp
+        code/Game/inc/DamagedBarrel.hpp)
 
 add_executable(retroTanks ${SOURCE_FILES})
 

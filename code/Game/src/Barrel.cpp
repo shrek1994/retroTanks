@@ -1,5 +1,6 @@
 #include "Barrel.hpp"
 #include "ObjectOwner.hpp"
+#include "DamagedBarrel.hpp"
 
 namespace Game {
 
@@ -10,7 +11,7 @@ Barrel::Barrel(Graphics& graphics, ObjectOwner& objectOwner, int centerX, int ce
 {}
 
 Barrel::~Barrel() {
-    //TODO add broken barrel
+    objectOwner.addObject(std::make_unique<DamagedBarrel>(graphics, objectOwner, _centerX, _centerY));
 }
 
 

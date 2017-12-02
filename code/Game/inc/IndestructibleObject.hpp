@@ -13,7 +13,7 @@ public:
     bool shouldBeRemove() const override;
     void draw(Graphics& graphics) override;
     SDL_Rect getRectangle() const override;
-private:
+protected:
     double _centerX, _centerY;
 };
 

@@ -28,6 +28,7 @@ private:
     void draw(Graphics &graphics);
     void update(int elapsedTime);
 
+    void createTanks();
     void addTank(std::unique_ptr<Tank>&& tank);
 
     std::unique_ptr<Graphics> graphics;
@@ -36,7 +37,6 @@ private:
 
     std::list<std::unique_ptr<Object>> objects;
     std::list<std::unique_ptr<Tank>> tanks;
-    void createTanks();
 };
 
 }

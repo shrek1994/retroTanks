@@ -5,14 +5,15 @@ namespace Game {
 
 class ObjectOwner;
 
-class Barrel : public DestructibleObject {
+class DamagedBarrel : public DestructibleObject {
 public:
-    Barrel(Graphics& graphics, ObjectOwner& objectOwner, int centerX, int centerY);
+    DamagedBarrel(Graphics& graphics, ObjectOwner& objectOwner, int centerX, int centerY);
+    ~DamagedBarrel();
 
-    ~Barrel();
 private:
     Graphics& graphics;
     ObjectOwner& objectOwner;
 };
+
 
 }
