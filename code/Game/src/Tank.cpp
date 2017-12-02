@@ -213,7 +213,7 @@ double Tank::getXPosition() const { return centerX; }
 
 double Tank::getYPosition() const { return centerY; }
 
-void Tank::setKilled() {
+void Tank::setDestroyed() {
     isKilled = true;
 }
 

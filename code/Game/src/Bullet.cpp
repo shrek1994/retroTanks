@@ -13,7 +13,7 @@ Bullet::Bullet(Graphics& graphics,
                int centerPosX, int centerPosY,
                Animation direction)
         : Object(graphics,
-                 "res/bulletGreen.png",
+                 "res/bulletGreenSilver.png",
                  0, 0,
                  BULLET_WIGHT_WHEN_IS_UP, BULLET_HEIGHT_WHEN_IS_UP),
           direction(direction),
@@ -100,7 +100,7 @@ bool Bullet::checkCollisionWithTanks() const {
     for (const auto& tank : objectOwner.getTanks()) {
         auto tankRect = tank->getRectangle();
         if (SDL_HasIntersection(&bulletRect, &tankRect)) {
-            tank->setKilled();
+            tank->setDestroyed();
             return true;
         }
     }
@@ -110,12 +110,13 @@ bool Bullet::checkCollisionWithTanks() const {
 
 
 bool Bullet::checkCollisionWithObjects() const {
+    // TODO fixme : code duplication with checkCollisionWithTanks !
     auto bulletRect = getRectangle();
     for (const auto& object : objectOwner.getObjects()) {
         if (*this == *object) continue;
         auto objectRect = object->getRectangle();
         if (SDL_HasIntersection(&bulletRect, &objectRect)) {
-//            tank->setKilled();
+            object->setDestroyed();
             return true;
         }
     }

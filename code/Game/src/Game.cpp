@@ -5,6 +5,7 @@
 #include "Player.hpp"
 #include "Game.hpp"
 #include "Bot.hpp"
+#include "Barrel.hpp"
 
 namespace Game {
 
@@ -17,6 +18,7 @@ void Game::init() {
     input = std::make_unique<Input>();
     map = std::make_unique<Map>("level 1", SDL_Point{42, 42}, *graphics);
     objects.push_back(std::make_unique<Sandbag>(*graphics, 100, 400));
+    objects.push_back(std::make_unique<Barrel>(*graphics, 200, 400));
 
     createTanks();
 }

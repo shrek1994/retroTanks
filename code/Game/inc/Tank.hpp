@@ -22,6 +22,8 @@ public:
     void draw(Graphics& graphics) override;
     bool shouldBeRemove() const override;
     SDL_Rect getRectangle() const override;
+    void setDestroyed() override;
+
 
     void moveLeft();
     void moveRight();
@@ -34,8 +36,6 @@ public:
     double getYPosition() const;
 
     void shoot(Graphics& graphics);
-    void setKilled();
-
     Animation getDirection();
     std::unique_ptr<Bullet> createBullet(Graphics& graphics);
 

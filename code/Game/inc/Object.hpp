@@ -19,6 +19,7 @@ public:
     virtual void update(int elapsedTime) = 0;
     virtual bool shouldBeRemove() const = 0;
     virtual SDL_Rect getRectangle() const = 0;
+    virtual void setDestroyed() {}
     virtual ~Object() = default;
 
     double getWight() const;

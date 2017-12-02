@@ -18,7 +18,7 @@ public:
     virtual void setupAnimations() = 0;
 
     void playAnimation(Animation animation, bool once = false);
-    void update(int elapsedTime) override ;
+    void update(int elapsedTime) override;
     void draw(Graphics &graphics, int centerX, int centerY);
     bool isVisible() const;
 
