@@ -22,7 +22,7 @@ public:
 
 private:
     void loadMap(std::string mapName, Graphics& graphics);
-    void createTrees(Graphics& graphics);
+    void createObjects(Graphics& graphics);
 
     std::string mapName;
     SDL_Point size;

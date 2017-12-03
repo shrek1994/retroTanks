@@ -1,4 +1,6 @@
 #include <Game/inc/ObjectOwner.hpp>
+#include <Game/inc/Barrel.hpp>
+#include <Game/inc/Sandbag.hpp>
 #include "common/debug.hpp"
 #include "common/Constants.hpp"
 #include "Map.hpp"
@@ -15,17 +17,30 @@ Map::Map(std::string mapName, Graphics& graphics, ObjectOwner& objectOwner) :
     mt(std::random_device()())
 {
     loadMap(mapName, graphics);
-    createTrees(graphics);
+    createObjects(graphics);
 }
 
-void Map::createTrees(Graphics& graphics) {
+void Map::createObjects(Graphics& graphics) {
     std::uniform_int_distribution<> weight(0, WINDOW_WIGHT);
     std::uniform_int_distribution<> height(static_cast<int>(SCALE_HEIGHT * TANK_HEIGHT),
                                            static_cast<int>(WINDOW_HEIGHT - (SCALE_HEIGHT * TANK_HEIGHT)));
+    int positionX, positionY;
     for (unsigned i = 0 ; i < config.numberOfTrees; ++i) {
+        positionX = weight(mt);
+        positionY = height(mt);
+        trees.emplace_back(graphics, positionX, positionY);
+    }
+
+    for (unsigned i = 0 ; i < config.numberOfBarrels; ++i) {
+        positionX = weight(mt);
+        positionY = height(mt);
+        objectOwner.addObject(std::make_unique<Barrel>(graphics, objectOwner, positionX, positionY));
+    }
+
+    for (unsigned i = 0 ; i < config.numberOfSandbags; ++i) {
         auto positionX = weight(mt);
         auto positionY = height(mt);
-        trees.emplace_back(graphics, positionX, positionY);
+        objectOwner.addObject(std::make_unique<Sandbag>(graphics, positionX, positionY));
     }
 }
 
