@@ -1,6 +1,5 @@
 #include <debug.hpp>
 #include "Game.hpp"
-#include "Config.hpp"
 #include "Menu.hpp"
 
 int main() {

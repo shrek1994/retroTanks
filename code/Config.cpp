@@ -16,8 +16,12 @@ Config::Config(std::string filename) {
 
     enemyInOneRound = json.at("enemyInOneRound").get<unsigned>();
     maxEnemyAtTheSameTime = json.at("maxEnemyAtTheSameTime").get<unsigned>();
+    numberOfTrees = json.at("numberOfTrees").get<unsigned>();
+    numberOfBarrels = json.at("numberOfBarrels").get<unsigned>();
+    numberOfSandbags = json.at("numberOfSandbags").get<unsigned>();
+}
 
-    DEBUG << json << "\n";
-    DEBUG << enemyInOneRound << "\n";
-    DEBUG << maxEnemyAtTheSameTime << "\n";
+const Config& Config::getConfig(std::string filename) {
+    static Config config(filename);
+    return config;
 }

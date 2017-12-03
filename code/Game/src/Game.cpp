@@ -1,5 +1,7 @@
 #include <SDL2/SDL.h>
 
+#include <utility>
+
 #include "debug.hpp"
 #include "Constants.hpp"
 #include "Player.hpp"
@@ -10,15 +12,16 @@
 namespace Game {
 
 Game::Game(std::shared_ptr<Graphics> graphics, std::shared_ptr<Input> input) :
-    graphics(graphics),
-    input(input)
+    graphics(std::move(graphics)),
+    input(std::move(input)),
+    config(Config::getConfig()),
+    enemyInOneRound(config.enemyInOneRound)
 {}
 
 void Game::init() {
-    map = std::make_unique<Map>("level 1", SDL_Point{42, 42}, *graphics);
-    objects.push_back(std::make_unique<Sandbag>(*graphics, 100, 400));
-    objects.push_back(std::make_unique<Barrel>(*graphics, *this, 200, 400));
+    map = std::make_unique<Map>("level 1", *graphics, *this);
 
+    createPlayer();
     createTanks();
 }
 
@@ -34,7 +37,6 @@ void Game::gameLoop() {
         auto currentTimeMs = SDL_GetTicks();
         auto elapsedTimeMs = currentTimeMs - lastUpdateTime;
 
-        //TODO czy powinien byc sleep ?
         auto sleepMs = MAX_FRAME_TIME - elapsedTimeMs > MAX_FRAME_TIME ? 0 : MAX_FRAME_TIME - elapsedTimeMs;
         SDL_Delay(sleepMs);
 
@@ -45,27 +47,36 @@ void Game::gameLoop() {
     } while (input->isGameTerminated() && ! (isEnd));
 
     DEBUG << "Ending game - correctly\n";
+
+    if (isEnd) {
+        SDL_Delay(1000);
+    }
+}
+
+void Game::createPlayer() {
+    auto player = std::make_unique<AI::Player>(*input, *this);
+    auto playerTank = std::make_unique<Tank>(
+            std::move(player), *this, *graphics, 0, 0);
+    this->playerTank = playerTank.get();
+    tanks.push_back(std::move(playerTank));
 }
 
 void Game::createTanks() {
-    auto player = std::make_unique<AI::Player>(*input, *this);
-    auto playerTank = std::make_unique<Tank>(std::move(player), *this, *graphics, 100, 100);
-    auto botTank1 = std::make_unique<AI::Bot>(*playerTank);
-    auto botTank2 = std::make_unique<AI::Bot>(*playerTank);
-    auto botTank3 = std::make_unique<AI::Bot>(*playerTank);
-    auto botTank4 = std::make_unique<AI::Bot>(*playerTank);
-    addTank(std::move(playerTank));
-    addTank(std::make_unique<Tank>(std::move(botTank1), *this, *graphics, 200, 200));
-    addTank(std::make_unique<Tank>(std::move(botTank2), *this, *graphics, 300, 300));
-    addTank(std::make_unique<Tank>(std::move(botTank3), *this, *graphics, 400, 400));
-    addTank(std::make_unique<Tank>(std::move(botTank4), *this, *graphics, 500, 500));
+    static int positionX = 0;
+    while (tanks.size() < config.maxEnemyAtTheSameTime && enemyInOneRound > 0) {
+        enemyInOneRound--;
+        addTank(positionX, WINDOW_HEIGHT);
+        positionX += WINDOW_WIGHT / config.maxEnemyAtTheSameTime;
+        if (positionX > WINDOW_WIGHT)
+            positionX = TANK_WIGHT + 1;
+    }
 }
 
 
 void Game::draw(Graphics& graphics) {
     graphics.clear();
 
-    map->draw(graphics);
+    map->drawBackground(graphics);
 
     for (const auto& tank : tanks) {
         tank->draw(graphics);
@@ -75,7 +86,7 @@ void Game::draw(Graphics& graphics) {
         obj->draw(graphics);
     }
 
-    map->drawTree(graphics);
+    map->drawTrees(graphics);
 
     graphics.flip();
 }
@@ -91,6 +102,7 @@ void Game::update(int elapsedTime) {
     }
     objects.remove_if([](const auto& obj) { return obj->shouldBeRemove(); });
 
+    createTanks();
     if (tanks.size() == 1)
         isEnd = true;
 }
@@ -104,7 +116,9 @@ void Game::addObject(std::unique_ptr<Object>&& object) {
     objects.push_back(std::move(object));
 }
 
-void Game::addTank(std::unique_ptr<Tank>&& tank) {
+void Game::addTank(int centerX, int centerY) {
+    auto botTank = std::make_unique<AI::Bot>(*playerTank);
+    auto tank = std::make_unique<Tank>(std::move(botTank), *this, *graphics, centerX, centerY);
     tanks.push_back(std::move(tank));
 }
 

@@ -3,6 +3,8 @@
 #include <SDL2/SDL.h>
 #include <string>
 #include <list>
+#include <random>
+#include <Config.hpp>
 
 #include "Animation.hpp"
 #include "Tree.hpp"
@@ -13,17 +15,21 @@ class Tree;
 
 class Map {
 public:
-    Map(std::string mapName, SDL_Point spawnPoint, Graphics& graphics);
-    void draw(Graphics& graphics);
-    void drawTree(Graphics& graphics);
+    Map(std::string mapName, Graphics& graphics, ObjectOwner& objectOwner);
+    void drawBackground(Graphics& graphics);
+    void drawTrees(Graphics& graphics);
+
 
 private:
     void loadMap(std::string mapName, Graphics& graphics);
+    void createTrees(Graphics& graphics);
 
-    std::string _mapName;
-    SDL_Point _spawnPoint;
-    SDL_Point _size;
-    SDL_Texture* _background;
+    std::string mapName;
+    SDL_Point size;
+    SDL_Texture* background;
+    ObjectOwner& objectOwner;
+    const Config& config;
+    std::mt19937 mt;
     std::list<Tree> trees;
 };
 

@@ -2,6 +2,7 @@
 
 #include <memory>
 #include <list>
+#include <Config.hpp>
 
 #include "Graphics.hpp"
 #include "Tank.hpp"
@@ -33,7 +34,8 @@ private:
     void update(int elapsedTime);
 
     void createTanks();
-    void addTank(std::unique_ptr<Tank>&& tank);
+    void createPlayer();
+    void addTank(int centerX, int centerY);
 
     std::shared_ptr<Graphics> graphics;
     std::shared_ptr<Input> input;
@@ -41,6 +43,10 @@ private:
 
     std::list<std::unique_ptr<Object>> objects;
     std::list<std::unique_ptr<Tank>> tanks;
+
+    Tank* playerTank;
+    const Config& config;
+    int enemyInOneRound;
 
     bool isEnd = false;
 };
