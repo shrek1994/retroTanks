@@ -5,6 +5,8 @@
 #include "Graphics.hpp"
 #include "StartGameButton.hpp"
 #include "OptionsButton.hpp"
+#include "StatisticsButton.hpp"
+#include "QuitButton.hpp"
 
 namespace Menu {
 
@@ -16,6 +18,8 @@ Menu::Menu(std::shared_ptr<Graphics> graphics,
 void Menu::init() {
     buttons.push_back(std::make_unique<StartGameButton>(*graphics, WINDOW_WIGHT / 2, 1.5 * BUTTON_HEIGHT));
     buttons.push_back(std::make_unique<OptionsButton>(*graphics, WINDOW_WIGHT / 2, 3.5 * BUTTON_HEIGHT));
+    buttons.push_back(std::make_unique<StatisticsButton>(*graphics, WINDOW_WIGHT / 2, 5.5 * BUTTON_HEIGHT));
+    buttons.push_back(std::make_unique<QuitButton>(*graphics, WINDOW_WIGHT / 2, 7.5 * BUTTON_HEIGHT));
 }
 
 MenuChoice Menu::start() {
@@ -31,6 +35,7 @@ MenuChoice Menu::start() {
         SDL_Delay(sleepMs);
 
         draw(*graphics);
+        update();
 
         lastUpdateTime = currentTimeMs;
 
@@ -49,6 +54,9 @@ void Menu::draw(Graphics& graphics) {
     graphics.flip();
 }
 
+void Menu::update() {
+
+}
 
 
 }
