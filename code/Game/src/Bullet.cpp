@@ -1,7 +1,7 @@
-#include "debug.hpp"
+#include "common/debug.hpp"
 #include "Bullet.hpp"
-#include "Constants.hpp"
-#include "Graphics.hpp"
+#include "common/Constants.hpp"
+#include "common/Graphics.hpp"
 #include "Smoke.hpp"
 #include "ObjectOwner.hpp"
 
@@ -110,7 +110,7 @@ bool Bullet::checkCollisionWithTanks() const {
 
 
 bool Bullet::checkCollisionWithObjects() const {
-    // TODO fixme : code duplication with checkCollisionWithTanks !
+    // fixme: code duplication with checkCollisionWithTanks !
     auto bulletRect = getRectangle();
     for (const auto& object : objectOwner.getObjects()) {
         if (*this == *object) continue;

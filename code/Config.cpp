@@ -1,5 +1,5 @@
 #include "Config.hpp"
-#include "debug.hpp"
+#include "common/debug.hpp"
 #include "json.hpp"
 #include <fstream>
 

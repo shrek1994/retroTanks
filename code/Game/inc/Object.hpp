@@ -3,8 +3,8 @@
 #include <SDL2/SDL.h>
 #include <string>
 
-namespace Game {
 class Graphics;
+namespace Game {
 
 class Object {
 public:

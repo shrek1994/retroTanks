@@ -6,9 +6,8 @@
 #include "debug.hpp"
 #include "Constants.hpp"
 
-namespace Game {
-
 Graphics::Graphics() {
+    SDL_Init(SDL_INIT_EVERYTHING);
     auto result = SDL_CreateWindowAndRenderer(WINDOW_WIGHT, WINDOW_HEIGHT, 0, &_window, &_renderer);
     if (result || _window == nullptr || _renderer == nullptr){
         ERROR << "SDL_CreateWindow Error: " << SDL_GetError() << std::endl;
@@ -52,6 +51,4 @@ void Graphics::clear() {
 
 SDL_Renderer* Graphics::getRenderer() const {
     return _renderer;
-}
-
 }

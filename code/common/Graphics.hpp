@@ -4,8 +4,6 @@
 #include <map>
 #include <string>
 
-namespace Game {
-
 class Graphics {
 public:
     Graphics();
@@ -23,5 +21,3 @@ private:
 
     std::map<std::string, SDL_Surface*> _imageSheets;
 };
-
-}

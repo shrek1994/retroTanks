@@ -15,17 +15,21 @@ include_directories(${SDL2_INCLUDE_DIRS})
 
 include_directories(
         code
+        code/Game
         code/Game/inc
+        code/AI
         code/AI/inc
+        code/Menu
+        code/common
         libs/inc
 )
 
 set(SOURCE_FILES
         code/main.cpp
-        code/Game/src/Graphics.cpp
-        code/Game/inc/Graphics.hpp
-        code/Game/src/Input.cpp
-        code/Game/inc/Input.hpp
+        code/common/Graphics.cpp
+        code/common/Graphics.hpp
+        code/common/Input.cpp
+        code/common/Input.hpp
         code/Game/src/Game.cpp
         code/Game/inc/Game.hpp
         code/Game/src/Tank.cpp
@@ -35,12 +39,12 @@ set(SOURCE_FILES
         code/Game/src/AnimatedObject.cpp
         code/Game/inc/AnimatedObject.hpp
         code/Animation.hpp
-        code/debug.hpp
+        code/common/debug.hpp
         code/Game/src/Map.cpp
         code/Game/inc/Map.hpp
         code/Game/src/Bullet.cpp
         code/Game/inc/Bullet.hpp
-        code/Constants.hpp
+        code/common/Constants.hpp
         code/Game/src/Smoke.cpp
         code/Game/inc/Smoke.hpp
         code/AI/src/Player.cpp
@@ -63,7 +67,12 @@ set(SOURCE_FILES
         code/Game/inc/Tree.hpp
         code/Config.cpp
         code/Config.hpp
-        libs/inc/json.hpp)
+        libs/inc/json.hpp
+        code/Menu/Menu.cpp
+        code/Menu/Menu.hpp
+        code/Menu/Object.cpp
+        code/Menu/Object.hpp
+        code/Menu/Button.cpp code/Menu/Button.hpp)
 
 add_executable(retroTanks ${SOURCE_FILES})
 

@@ -16,7 +16,7 @@ namespace Game {
 
 class Game : public ObjectOwner {
 public:
-    Game();
+    Game(std::shared_ptr<Graphics> graphics, std::shared_ptr<Input> input);
     int start();
 
     void addObject(std::unique_ptr<Object>&& object) override;
@@ -31,8 +31,8 @@ private:
     void createTanks();
     void addTank(std::unique_ptr<Tank>&& tank);
 
-    std::unique_ptr<Graphics> graphics;
-    std::unique_ptr<Input> input;
+    std::shared_ptr<Graphics> graphics;
+    std::shared_ptr<Input> input;
     std::unique_ptr<Map> map;
 
     std::list<std::unique_ptr<Object>> objects;

@@ -6,7 +6,7 @@ namespace Game {
 
 class Sandbag : public IndestructibleObject {
 public:
-    Sandbag(Game::Graphics& graphics, int centerX, int centerY);
+    Sandbag(Graphics& graphics, int centerX, int centerY);
 };
 
 

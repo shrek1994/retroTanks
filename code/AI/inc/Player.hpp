@@ -2,8 +2,8 @@
 
 #include "ITankController.hpp"
 
-namespace Game {
 class Input;
+namespace Game {
 class Tank;
 }
 
@@ -12,12 +12,12 @@ namespace AI {
 
 class Player : public ITankController{
 public:
-    Player(Game::Input& input);
+    Player(Input& input);
 
     void conditionallyMove(Game::Tank& tank) override;
-    void conditionallyShoot(Game::Tank& tank, Game::Graphics& graphics) override;
+    void conditionallyShoot(Game::Tank& tank, Graphics& graphics) override;
 private:
-    Game::Input& input;
+    Input& input;
 };
 
 }

@@ -1,7 +1,5 @@
 #include "Input.hpp"
 
-namespace Game {
-
 void Input::beginNewFrame() {
     _pressedKeys.clear();
     _releasedKeys.clear();
@@ -39,6 +37,4 @@ bool Input::isKeyHeld(SDL_Scancode key) {
 
 bool Input::isGameTerminated() {
     return _event.type != SDL_QUIT;
-}
-
 }

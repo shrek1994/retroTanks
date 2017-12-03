@@ -1,6 +1,6 @@
-#include "debug.hpp"
+#include "common/debug.hpp"
 #include "AnimatedObject.hpp"
-#include "Graphics.hpp"
+#include "common/Graphics.hpp"
 
 namespace Game {
 

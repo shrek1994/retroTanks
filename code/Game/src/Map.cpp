@@ -1,7 +1,7 @@
-#include "debug.hpp"
-#include "Constants.hpp"
+#include "common/debug.hpp"
+#include "common/Constants.hpp"
 #include "Map.hpp"
-#include "Graphics.hpp"
+#include "common/Graphics.hpp"
 
 
 namespace Game {

@@ -7,8 +7,8 @@
 #include "Animation.hpp"
 #include "Tree.hpp"
 
-namespace Game {
 class Graphics;
+namespace Game {
 class Tree;
 
 class Map {

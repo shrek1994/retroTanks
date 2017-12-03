@@ -2,8 +2,8 @@
 #include "AI/inc/Bot.hpp"
 #include <ctime>
 #include <random>
-#include <Constants.hpp>
-#include <debug.hpp>
+#include <common/Constants.hpp>
+#include <common/debug.hpp>
 
 namespace {
 constexpr unsigned MIN_MOVES_IN_ONE_DIRECTION = 15;
@@ -42,7 +42,7 @@ namespace AI {
         movingNumber = 0;
     }
 
-    void Bot::conditionallyShoot(Game::Tank& tank, Game::Graphics& graphics)
+    void Bot::conditionallyShoot(Game::Tank& tank, Graphics& graphics)
     {
         if (shouldShoot(tank.getYPosition(), player.getYPosition()) && movingNumber == MIN_MOVES_IN_ONE_DIRECTION) {
             tank.shoot(graphics);

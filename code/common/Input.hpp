@@ -3,8 +3,6 @@
 #include <SDL2/SDL.h>
 #include <map>
 
-namespace Game {
-
 class Input {
 public:
     void beginNewFrame();
@@ -24,5 +22,3 @@ private:
 
     SDL_Event _event;
 };
-
-}

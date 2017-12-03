@@ -1,10 +1,10 @@
 #include "AI/inc/Player.hpp"
-#include "Input.hpp"
+#include "common/Input.hpp"
 #include "Tank.hpp"
 
 namespace AI {
 
-Player::Player(Game::Input& input) : input(input) {}
+Player::Player(Input& input) : input(input) {}
 
 void Player::conditionallyMove(Game::Tank& tank) {
     if (input.isKeyHeld(SDL_SCANCODE_LEFT) || input.isKeyHeld(SDL_SCANCODE_A)) {
@@ -20,7 +20,7 @@ void Player::conditionallyMove(Game::Tank& tank) {
     }
 }
 
-void Player::conditionallyShoot(Game::Tank& tank, Game::Graphics& graphics) {
+void Player::conditionallyShoot(Game::Tank& tank, Graphics& graphics) {
     if (input.wasKeyPressed(SDL_SCANCODE_LCTRL)
         || input.wasKeyPressed(SDL_SCANCODE_RCTRL)) {
         tank.shoot(graphics);
