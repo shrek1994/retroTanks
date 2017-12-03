@@ -3,6 +3,7 @@ project(retroTanks)
 
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -pedantic -Wextra -Werror")
+set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE "${CMAKE_COMMAND} -E time")
 
 find_package(SDL2 REQUIRED)
 include_directories(${SDL2_INCLUDE_DIRS} ${SDL2_IMAGE_INCLUDE_DIRS})
@@ -16,6 +17,7 @@ include_directories(
         code
         code/Game/inc
         code/AI/inc
+        libs/inc
 )
 
 set(SOURCE_FILES
@@ -58,7 +60,10 @@ set(SOURCE_FILES
         code/Game/src/DamagedBarrel.cpp
         code/Game/inc/DamagedBarrel.hpp
         code/Game/src/Tree.cpp
-        code/Game/inc/Tree.hpp)
+        code/Game/inc/Tree.hpp
+        code/Config.cpp
+        code/Config.hpp
+        libs/inc/json.hpp)
 
 add_executable(retroTanks ${SOURCE_FILES})
 
