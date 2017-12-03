@@ -72,7 +72,7 @@ set(SOURCE_FILES
         code/Menu/Menu.hpp
         code/Menu/Object.cpp
         code/Menu/Object.hpp
-        code/Menu/Button.cpp code/Menu/Button.hpp)
+        code/Menu/Button.cpp code/Menu/Button.hpp code/Menu/StartGameButton.cpp code/Menu/StartGameButton.hpp code/Menu/OptionsButton.hpp code/Menu/InactiveBackground.hpp code/Menu/ActiveBackground.hpp)
 
 add_executable(retroTanks ${SOURCE_FILES})
 

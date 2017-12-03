@@ -17,6 +17,9 @@ constexpr int BULLET_HEIGHT_WHEN_IS_UP = 34;
 constexpr int BULLET_WIGHT_WHEN_IS_LEFT = BULLET_HEIGHT_WHEN_IS_UP;
 constexpr int BULLET_HEIGHT_WHEN_IS_LEFT = BULLET_WIGHT_WHEN_IS_UP;
 
+constexpr int BUTTON_HEIGHT = WINDOW_HEIGHT / 9;
+constexpr int BUTTON_WEIGHT = BUTTON_HEIGHT * 4;
+
 constexpr int AREA_WIGHT = WINDOW_WIGHT / AREAS_PER_WIGHT;
 constexpr int AREA_HEIGHT = WINDOW_HEIGHT / AREAS_PER_HEIGHT;
 constexpr double SCALE_WIGHT = static_cast<double>(AREA_WIGHT) / static_cast<double>(TANK_WIGHT);

@@ -3,6 +3,8 @@
 #include "Menu.hpp"
 #include "Input.hpp"
 #include "Graphics.hpp"
+#include "StartGameButton.hpp"
+#include "OptionsButton.hpp"
 
 namespace Menu {
 
@@ -12,7 +14,8 @@ Menu::Menu(std::shared_ptr<Graphics> graphics,
             input(std::move(input)) {}
 
 void Menu::init() {
-
+    buttons.push_back(std::make_unique<StartGameButton>(*graphics, WINDOW_WIGHT / 2, 1.5 * BUTTON_HEIGHT));
+    buttons.push_back(std::make_unique<OptionsButton>(*graphics, WINDOW_WIGHT / 2, 3.5 * BUTTON_HEIGHT));
 }
 
 MenuChoice Menu::start() {
@@ -38,6 +41,10 @@ MenuChoice Menu::start() {
 
 void Menu::draw(Graphics& graphics) {
     graphics.clear();
+
+    for (auto& button : buttons) {
+        button->draw(graphics);
+    }
 
     graphics.flip();
 }
