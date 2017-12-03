@@ -4,10 +4,10 @@
 namespace Game {
 
 namespace {
-const std::string BEIGE_TANK = "res/sandbagBeige.png";
-const std::string BROWN_TANK = "res/sandbagBrown.png";
-const std::array<std::string, 2> colorsSandbags = {BROWN_TANK,
-                                                   BEIGE_TANK};
+const std::string BEIGE_SANDBAG = "res/sandbagBeige.png";
+const std::string BROWN_SANDBAG = "res/sandbagBrown.png";
+const std::array<std::string, 2> colorsSandbags = {BROWN_SANDBAG,
+                                                   BEIGE_SANDBAG};
 
 std::string getBarrelName() {
     static char color = 0;
