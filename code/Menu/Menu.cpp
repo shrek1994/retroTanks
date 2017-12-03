@@ -20,6 +20,8 @@ void Menu::init() {
     buttons.push_back(std::make_unique<OptionsButton>(*graphics, WINDOW_WIGHT / 2, 3.5 * BUTTON_HEIGHT));
     buttons.push_back(std::make_unique<StatisticsButton>(*graphics, WINDOW_WIGHT / 2, 5.5 * BUTTON_HEIGHT));
     buttons.push_back(std::make_unique<QuitButton>(*graphics, WINDOW_WIGHT / 2, 7.5 * BUTTON_HEIGHT));
+
+    activeButton = buttons.begin();
 }
 
 MenuChoice Menu::start() {
@@ -41,7 +43,16 @@ MenuChoice Menu::start() {
 
     } while (!input->wasKeyPressed(SDL_SCANCODE_RETURN));
 
-    return MenuChoice::StartGame;
+    auto choice = std::distance(buttons.begin(), activeButton);
+    switch (choice) {
+        case 0:
+            return MenuChoice::StartGame;
+        case 1:
+            return MenuChoice::Options;
+        case 2:
+            return MenuChoice::Stats;
+    }
+    return MenuChoice::Quit;
 }
 
 void Menu::draw(Graphics& graphics) {
@@ -55,6 +66,19 @@ void Menu::draw(Graphics& graphics) {
 }
 
 void Menu::update() {
+    (*activeButton)->setState(State::Inactive);
+
+    if (input->wasKeyPressed(SDL_SCANCODE_UP)) {
+        if (activeButton != buttons.begin())
+            activeButton--;
+
+    } else if (input->wasKeyPressed(SDL_SCANCODE_DOWN)) {
+        activeButton++;
+        if (activeButton == buttons.end())
+            activeButton--;
+    }
+
+    (*activeButton)->setState(State::Active);
 
 }
 

@@ -25,11 +25,12 @@ public:
 
 private:
     void draw(Graphics& graphics);
+    void update();
 
     std::shared_ptr<Graphics> graphics;
     std::shared_ptr<Input> input;
     std::list<std::unique_ptr<Button>> buttons;
-    void update();
+    std::list<std::unique_ptr<Button>>::iterator activeButton;
 };
 
 }

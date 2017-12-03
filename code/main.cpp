@@ -1,3 +1,4 @@
+#include <debug.hpp>
 #include "Game.hpp"
 #include "Config.hpp"
 #include "Menu.hpp"
@@ -19,8 +20,10 @@ int main() {
                 Game(graphics, input).start();
                 break;
             case MenuChoice::Options:
+                ERROR << "Not implemented yet !\n";
                 break;
             case MenuChoice::Stats:
+                ERROR << "Not implemented yet !\n";
                 break;
             default:
                 break;
