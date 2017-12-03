@@ -42,13 +42,13 @@ void Game::gameLoop() {
         draw(*graphics);
 
         lastUpdateTime = currentTimeMs;
-    } while (input->isGameTerminated());
+    } while (input->isGameTerminated() && ! (isEnd));
 
     DEBUG << "Ending game - correctly\n";
 }
 
 void Game::createTanks() {
-    auto player = std::make_unique<AI::Player>(*input);
+    auto player = std::make_unique<AI::Player>(*input, *this);
     auto playerTank = std::make_unique<Tank>(std::move(player), *this, *graphics, 100, 100);
     auto botTank1 = std::make_unique<AI::Bot>(*playerTank);
     auto botTank2 = std::make_unique<AI::Bot>(*playerTank);
@@ -91,6 +91,8 @@ void Game::update(int elapsedTime) {
     }
     objects.remove_if([](const auto& obj) { return obj->shouldBeRemove(); });
 
+    if (tanks.size() == 1)
+        isEnd = true;
 }
 
 int Game::start() {

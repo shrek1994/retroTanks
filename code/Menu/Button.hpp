@@ -34,6 +34,8 @@ public:
         activeBackground->setHeight(height);
         text->setHeight(height);
     };
+
+    virtual ~Button() = default;
 private:
     std::unique_ptr<Object> inactiveBackground;
     std::unique_ptr<Object> activeBackground;

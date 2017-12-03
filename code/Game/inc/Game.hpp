@@ -22,6 +22,10 @@ public:
     void addObject(std::unique_ptr<Object>&& object) override;
     const std::list<std::unique_ptr<Tank>>& getTanks() override;
     const std::list<std::unique_ptr<Object>>& getObjects() override;
+
+    void notifyAboutPlayersDead() {
+        isEnd = true;
+    }
 private:
     void init();
     void gameLoop();
@@ -37,6 +41,8 @@ private:
 
     std::list<std::unique_ptr<Object>> objects;
     std::list<std::unique_ptr<Tank>> tanks;
+
+    bool isEnd = false;
 };
 
 }
