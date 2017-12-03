@@ -11,7 +11,7 @@ constexpr int WINDOW_HEIGHT = 700;
 constexpr int WINDOW_WIGHT = WINDOW_HEIGHT / AREAS_PER_HEIGHT * AREAS_PER_WIGHT;
 
 constexpr int TANK_HEIGHT = 84;
-constexpr int TANK_WIGHT = 83;
+constexpr int TANK_WIGHT = 84;
 constexpr int BULLET_WIGHT_WHEN_IS_UP = 20;
 constexpr int BULLET_HEIGHT_WHEN_IS_UP = 34;
 constexpr int BULLET_WIGHT_WHEN_IS_LEFT = BULLET_HEIGHT_WHEN_IS_UP;

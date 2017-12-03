@@ -1,10 +1,10 @@
-#include <Game/inc/ObjectOwner.hpp>
-#include <Game/inc/Barrel.hpp>
-#include <Game/inc/Sandbag.hpp>
-#include "common/debug.hpp"
-#include "common/Constants.hpp"
+#include <ObjectOwner.hpp>
+#include <Barrel.hpp>
+#include <Sandbag.hpp>
+#include "debug.hpp"
+#include "Constants.hpp"
 #include "Map.hpp"
-#include "common/Graphics.hpp"
+#include "Graphics.hpp"
 
 
 namespace Game {
@@ -22,8 +22,9 @@ Map::Map(std::string mapName, Graphics& graphics, ObjectOwner& objectOwner) :
 
 void Map::createObjects(Graphics& graphics) {
     std::uniform_int_distribution<> weight(0, WINDOW_WIGHT);
-    std::uniform_int_distribution<> height(static_cast<int>(SCALE_HEIGHT * TANK_HEIGHT),
-                                           static_cast<int>(WINDOW_HEIGHT - (SCALE_HEIGHT * TANK_HEIGHT)));
+    std::uniform_int_distribution<> height(
+            static_cast<int>(SCALE_HEIGHT * TANK_HEIGHT * 1.3),
+            static_cast<int>(WINDOW_HEIGHT - (SCALE_HEIGHT * TANK_HEIGHT * 1.3)));
     int positionX, positionY;
     for (unsigned i = 0 ; i < config.numberOfTrees; ++i) {
         positionX = weight(mt);
@@ -38,8 +39,8 @@ void Map::createObjects(Graphics& graphics) {
     }
 
     for (unsigned i = 0 ; i < config.numberOfSandbags; ++i) {
-        auto positionX = weight(mt);
-        auto positionY = height(mt);
+        positionX = weight(mt);
+        positionY = height(mt);
         objectOwner.addObject(std::make_unique<Sandbag>(graphics, positionX, positionY));
     }
 }
