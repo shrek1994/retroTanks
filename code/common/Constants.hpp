@@ -1,9 +1,12 @@
 #pragma once
 
+#include <string>
+
 constexpr unsigned FPS = 50;
 constexpr unsigned MAX_FRAME_TIME = 1000 / FPS;
 
 
+const std::string GREEN_TANK = "res/playerTankGreen.png";
 constexpr int AREAS_PER_WIGHT = 16 * 2;
 constexpr int AREAS_PER_HEIGHT = 9 * 2;
 

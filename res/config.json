@@ -1,6 +1,6 @@
 {
-	"enemyInOneRound" : 100,
-	"maxEnemyAtTheSameTime" : 10,
+	"enemyInOneRound" : 20,
+	"maxEnemyAtTheSameTime" : 6,
 	"numberOfTrees" : 20,
 	"numberOfBarrels" : 50,
 	"numberOfSandbags" : 30

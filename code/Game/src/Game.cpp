@@ -56,7 +56,7 @@ void Game::gameLoop() {
 void Game::createPlayer() {
     auto player = std::make_unique<AI::Player>(*input, *this);
     auto playerTank = std::make_unique<Tank>(
-            std::move(player), *this, *graphics, 0, 0);
+            std::move(player), *this, *graphics, 0, 0, GREEN_TANK);
     this->playerTank = playerTank.get();
     tanks.push_back(std::move(playerTank));
 }

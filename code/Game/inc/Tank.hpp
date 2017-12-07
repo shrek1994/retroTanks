@@ -17,6 +17,12 @@ public:
          Graphics& graphics,
          int posX, int posY);
 
+    Tank(std::unique_ptr<AI::ITankController>&& tankController,
+         ObjectOwner& objectOwner,
+         Graphics& graphics,
+         int posX, int posY,
+         std::string path);
+
     void setupAnimations() override;
     void update(int elapsedTime) override;
     void draw(Graphics& graphics) override;

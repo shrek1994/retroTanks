@@ -12,11 +12,9 @@ namespace Game {
 namespace {
 const std::string BEIGE_TANK = "res/playerTankBeige.png";
 const std::string BLACK_TANK = "res/playerTankBlack.png";
-const std::string GREEN_TANK = "res/playerTankGreen.png";
 const std::string BLUE_TANK  = "res/playerTankBlue.png";
 const std::string RED_TANK   = "res/playerTankRed.png";
-const std::array<std::string, 5> colorsTank = {GREEN_TANK,
-                                               BEIGE_TANK,
+const std::array<std::string, 4> colorsTank = {BEIGE_TANK,
                                                BLACK_TANK,
                                                RED_TANK,
                                                BLUE_TANK};
@@ -226,4 +224,23 @@ bool Tank::isIdle() {
             || direction == Animation::IdleDown || direction == Animation::IdleRight;
 }
 
+Tank::Tank(std::unique_ptr<AI::ITankController>&& tankController,
+           ObjectOwner& objectOwner,
+           Graphics& graphics,
+           int posX, int posY, std::string path)  :
+        AnimatedObject(graphics,
+                       path,
+                       0,
+                       0,
+                       TANK_HEIGHT,
+                       TANK_WIGHT,
+                       125),
+        centerX(posX), centerY(posY),
+        direction(Animation::IdleUp),
+        tankController(std::move(tankController)),
+        objectOwner(objectOwner),
+        graphics(graphics)
+{
+    setupAnimations();
+}
 }
